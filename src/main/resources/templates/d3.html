@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>力导向图</title>
+    <link rel="stylesheet" th:href="@{css/bootstrap.css}">
+    <script th:src="@{js/jquery.js}"></script>
+    <script th:src="@{js/d3.min.js}"></script>
+    <style>
+        body{
+            background:blanchedalmond;
+        }
+    </style>
+</head>
+<body >
+<script>
+   $(function(){
+
+
+       $.ajax({
+           url:"/getLike",
+           type:"get",
+           async:false,
+           // dataType:"json",
+           success:function (data) {
+               data = eval(data)
+               var w = 960;
+               var h = 600;
+               var nodes = data.nodes;
+               var edges = data.links;
+               // /(2)转化数据为适合生成力导向图的对象数组
+               var force = d3.layout.force()
+                   .nodes(nodes)//加载节点数据
+                   .links(edges)//加载边数据
+                   .size([w, h])//设置有效空间的大小
+                   .linkDistance(150)//连线的长度
+                   .charge(-100)//负电荷量，相互排斥设置的负值越大越排斥
+                   .start();//设置生效
+
+               var svg = d3.select("body")
+                   .append("svg")
+                   .attr("width", w)
+                   .attr("height", h);
+               //画一个颜色标尺，让不同的节点显示不同的颜色
+               var colors = d3.scale.category20()//创建序数比例尺和包括20中颜色的输出范围
+
+               var edge = svg.selectAll("line")
+                   .data(edges)
+                   .enter()
+                   .append("line")
+                   .style("stroke", function (d) {//  设置线的颜色
+                       return colors(d.value*3);
+                   })
+                   .style("stroke-width", function (d, i) {//设置线的宽度
+                       return d.value;
+                   });
+               //(4) 创建作为连线的svg圆形
+               var node = svg.selectAll("circle")
+                   .data(nodes)
+                   .enter()
+                   .append("circle")//.attr("r", 20)//.style("fill","red")
+                   .attr("r", function (d) {//设置圆点的半径，圆点的度越大weight属性值越大，可以对其做一点数学变换
+                       return Math.log(d.age ) * 10;
+                   })
+                   .style("fill", function (d) {
+                       return colors(d.age * 0.7);
+                   })
+                   .call(force.drag);//可以拖动
+
+               // /(5)打点更新，没有的话就显示不出来了
+               force.on("tick", function () {
+                   //边
+                   edge.attr("x1", function (d) {
+                       return d.source.x;
+                   })
+                       .attr("y1", function (d) {
+                           return d.source.y;
+                       })
+                       .attr("x2", function (d) {
+                           return d.target.x;
+                       })
+                       .attr("y2", function (d) {
+                           return d.target.y;
+                       });
+
+                   //节点
+                   node.attr("cx", function (d) {
+                       return d.x;
+                   })
+                       .attr("cy", function (d) {
+                           return d.y;
+                       });
+
+               })
+           }
+
+       });
+   })
+</script>
+</body>
+</html>

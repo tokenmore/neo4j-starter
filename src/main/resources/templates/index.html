@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}">
+    <script th:src="@{js/jquery.js}"></script>
+    <script th:src="@{js/bootstrap.min.js}"></script>
+</head>
+<body>
+    <div id="top">
+
+    </div>
+
+    <div id="head">
+        <form class="form-horizontal col-md-10"style="margin-top: 3px">
+            <div class="form-group">
+                <label class="col-sm-1 control-label"></label>
+                <div class="col-sm-8">
+                    <input type="text" id="sql" class="form-control">
+                </div>
+                <label class="col-sm-1 control-label"></label>
+                <div class="col-sm-2">
+                    <button class="btn btn-primary" id="search">搜索</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="center">
+
+    </div>
+    <div id="bottom">
+        <input type="hidden" id="nodeLabels">
+    </div>
+<script>
+    $(function () {
+       $.ajax({
+           url:"/getallnodeLabels",
+           type:"get",
+           dataType:"json",
+           async:"false",
+           success:function (data) {
+                $.each(data,function (index,val) {
+                    var spanEl = $("<span></span>").attr("class","label label-info");
+                    spanEl.append(" ").append(val).appendTo("#top");
+                });
+           }
+       }) ;
+    });
+</script>
+</body>
+</html>
