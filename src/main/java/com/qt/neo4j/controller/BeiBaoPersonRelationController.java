@@ -1,7 +1,7 @@
 package com.qt.neo4j.controller;
 
 import com.qt.neo4j.dao.BeiBaoRelationRepsitory;
-import com.qt.neo4j.entitiy.BeiBaoRelation;
+import com.qt.neo4j.entitiy.relation.BeiBaoRelation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

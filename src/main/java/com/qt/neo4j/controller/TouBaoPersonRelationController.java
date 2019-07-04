@@ -3,7 +3,7 @@ package com.qt.neo4j.controller;
 import com.qt.neo4j.dao.TouBaoRelationRepsitory;
 import com.qt.neo4j.entitiy.Links;
 import com.qt.neo4j.entitiy.Node;
-import com.qt.neo4j.entitiy.TouBaoRelation;
+import com.qt.neo4j.entitiy.relation.TouBaoRelation;
 import com.qt.neo4j.utils.RelationResult;
 import com.qt.neo4j.utils.SetRelationPropertiesUtils;
 import org.springframework.beans.factory.annotation.Autowired;

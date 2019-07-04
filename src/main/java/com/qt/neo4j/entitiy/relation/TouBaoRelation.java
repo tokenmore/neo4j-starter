@@ -1,21 +1,24 @@
-package com.qt.neo4j.entitiy;
+package com.qt.neo4j.entitiy.relation;
 
+
+import com.qt.neo4j.entitiy.AccidentCase;
+import com.qt.neo4j.entitiy.Customer;
 import org.neo4j.ogm.annotation.EndNode;
 import org.neo4j.ogm.annotation.RelationshipEntity;
 import org.neo4j.ogm.annotation.StartNode;
 
-@RelationshipEntity(type = "是被保人")
-public class BeiBaoRelation extends BaseRelation {
+@RelationshipEntity(type = "是投保人")
+public class TouBaoRelation extends BaseRelation {
     @StartNode
     private Customer customer;
 
     @EndNode
     private AccidentCase accidentCase;
 
-    public BeiBaoRelation() {
+    public TouBaoRelation() {
     }
 
-    public BeiBaoRelation(Customer customer, AccidentCase accidentCase) {
+    public TouBaoRelation(Customer customer, AccidentCase accidentCase) {
         this.customer = customer;
         this.accidentCase = accidentCase;
     }
@@ -36,3 +39,4 @@ public class BeiBaoRelation extends BaseRelation {
         this.accidentCase = accidentCase;
     }
 }
+

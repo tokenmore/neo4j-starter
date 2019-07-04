@@ -1,5 +1,7 @@
-package com.qt.neo4j.entitiy;
+package com.qt.neo4j.entitiy.relation;
 
+import com.qt.neo4j.entitiy.AccidentCase;
+import com.qt.neo4j.entitiy.Hospital;
 import org.neo4j.ogm.annotation.EndNode;
 import org.neo4j.ogm.annotation.RelationshipEntity;
 import org.neo4j.ogm.annotation.StartNode;

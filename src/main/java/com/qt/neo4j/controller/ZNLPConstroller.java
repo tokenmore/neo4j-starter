@@ -2,6 +2,7 @@ package com.qt.neo4j.controller;
 
 import com.qt.neo4j.dao.*;
 import com.qt.neo4j.entitiy.*;
+import com.qt.neo4j.entitiy.relation.*;
 import com.qt.neo4j.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

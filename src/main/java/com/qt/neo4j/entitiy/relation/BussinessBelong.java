@@ -1,5 +1,7 @@
-package com.qt.neo4j.entitiy;
+package com.qt.neo4j.entitiy.relation;
 
+import com.qt.neo4j.entitiy.AccidentCase;
+import com.qt.neo4j.entitiy.Employee;
 import org.neo4j.ogm.annotation.*;
 
 /**
@@ -9,24 +11,16 @@ import org.neo4j.ogm.annotation.*;
 @RelationshipEntity(type = "BussinessBelong")
 public class BussinessBelong extends BaseRelation{
     @EndNode
-    private  Employee employee;
+    private Employee employee;
 
     @StartNode
-    private  AccidentCase accidentCase;
+    private AccidentCase accidentCase;
 
 
     public BussinessBelong() { }
 
     public BussinessBelong(Employee employee, AccidentCase accidentCase) {
         this.employee = employee;
-        this.accidentCase = accidentCase;
-    }
-
-    public AccidentCase getAccidentCase() {
-        return accidentCase;
-    }
-
-    public void setAccidentCase(AccidentCase accidentCase) {
         this.accidentCase = accidentCase;
     }
 
@@ -38,4 +32,11 @@ public class BussinessBelong extends BaseRelation{
         this.employee = employee;
     }
 
+    public AccidentCase getAccidentCase() {
+        return accidentCase;
+    }
+
+    public void setAccidentCase(AccidentCase accidentCase) {
+        this.accidentCase = accidentCase;
+    }
 }

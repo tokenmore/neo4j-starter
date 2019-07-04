@@ -1,7 +1,7 @@
 package com.qt.neo4j.controller;
 
 import com.qt.neo4j.dao.LingKuanTelRelationRepsitory;
-import com.qt.neo4j.entitiy.LingKuanTelRelation;
+import com.qt.neo4j.entitiy.relation.LingKuanTelRelation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

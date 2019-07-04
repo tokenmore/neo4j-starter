@@ -1,6 +1,6 @@
 package com.qt.neo4j.dao;
 
-import com.qt.neo4j.entitiy.BaseRelation;
+import com.qt.neo4j.entitiy.relation.BaseRelation;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.stereotype.Repository;

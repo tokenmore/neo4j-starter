@@ -1,14 +1,10 @@
 package com.qt.neo4j.service;
 
 import com.qt.neo4j.dao.BussinessBelongRepsitory;
-import com.qt.neo4j.entitiy.AccidentCase;
-import com.qt.neo4j.entitiy.BaseNode;
-import com.qt.neo4j.entitiy.BussinessBelong;
-import com.qt.neo4j.entitiy.Employee;
+import com.qt.neo4j.entitiy.relation.BussinessBelong;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

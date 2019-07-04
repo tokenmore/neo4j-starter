@@ -4,7 +4,7 @@ import com.qt.neo4j.entitiy.Links;
 import com.qt.neo4j.entitiy.Node;
 
 import java.util.List;
-//
+
 public class RelationResult {
     //存放node节点的list
     private List<Node> nodeList;

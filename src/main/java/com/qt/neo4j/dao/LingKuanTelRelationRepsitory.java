@@ -1,6 +1,6 @@
 package com.qt.neo4j.dao;
 
-import com.qt.neo4j.entitiy.LingKuanTelRelation;
+import com.qt.neo4j.entitiy.relation.LingKuanTelRelation;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.repository.query.Param;

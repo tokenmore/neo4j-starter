@@ -1,5 +1,7 @@
-package com.qt.neo4j.entitiy;
+package com.qt.neo4j.entitiy.relation;
 
+import com.qt.neo4j.entitiy.AccidentCase;
+import com.qt.neo4j.entitiy.Customer;
 import org.neo4j.ogm.annotation.EndNode;
 import org.neo4j.ogm.annotation.RelationshipEntity;
 import org.neo4j.ogm.annotation.StartNode;
@@ -15,11 +17,6 @@ public class BaoAnRelation extends BaseRelation {
     public BaoAnRelation() {
     }
 
-    public BaoAnRelation(Customer customer, AccidentCase accidentCase) {
-        this.customer = customer;
-        this.accidentCase = accidentCase;
-    }
-
     public Customer getCustomer() {
         return customer;
     }
@@ -33,6 +30,11 @@ public class BaoAnRelation extends BaseRelation {
     }
 
     public void setAccidentCase(AccidentCase accidentCase) {
+        this.accidentCase = accidentCase;
+    }
+
+    public BaoAnRelation(Customer customer, AccidentCase accidentCase) {
+        this.customer = customer;
         this.accidentCase = accidentCase;
     }
 }

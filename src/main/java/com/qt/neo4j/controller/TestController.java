@@ -2,6 +2,7 @@ package com.qt.neo4j.controller;
 
 import com.qt.neo4j.dao.*;
 import com.qt.neo4j.entitiy.*;
+import com.qt.neo4j.entitiy.relation.*;
 import com.qt.neo4j.utils.RelationResult;
 import com.qt.neo4j.utils.SetRelationPropertiesUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,6 +131,13 @@ public class TestController {
     @RequestMapping("/getAll")
     public List<BaseRelation> getAllNodeAndRelation(){
         List<BaseRelation> list = neo4jRepositity.getAllNodeAndRelation();
+        System.out.println(list.size());
+        for (int i=0;i<list.size();i++){
+            String classname = list.get(i).getClass().getSimpleName();
+            if(classname == "TouBaoRelation"){
+                TouBaoRelation touBaoRelation = (TouBaoRelation)list.get(i);
+            }
+        }
         return list;
     }
 }

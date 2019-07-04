@@ -1,6 +1,7 @@
 package com.qt.neo4j.utils;
 
 import com.qt.neo4j.entitiy.*;
+import com.qt.neo4j.entitiy.relation.*;
 
 import java.util.List;
 

@@ -1,11 +1,13 @@
-package com.qt.neo4j.entitiy;
+package com.qt.neo4j.entitiy.relation;
 
+import com.qt.neo4j.entitiy.Customer;
+import com.qt.neo4j.entitiy.Telephone;
 import org.neo4j.ogm.annotation.EndNode;
 import org.neo4j.ogm.annotation.RelationshipEntity;
 import org.neo4j.ogm.annotation.StartNode;
 
 @RelationshipEntity(type = "使用")
-public class UserTelRelation  extends BaseRelation{
+public class UserTelRelation  extends BaseRelation {
     @StartNode
     private Customer customer;
     @EndNode

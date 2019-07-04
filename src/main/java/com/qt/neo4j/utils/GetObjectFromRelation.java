@@ -2,7 +2,7 @@ package com.qt.neo4j.utils;
 
 import com.qt.neo4j.entitiy.AccidentCase;
 import com.qt.neo4j.entitiy.Customer;
-import com.qt.neo4j.entitiy.TouBaoRelation;
+import com.qt.neo4j.entitiy.relation.TouBaoRelation;
 
 import java.util.HashMap;
 import java.util.List;

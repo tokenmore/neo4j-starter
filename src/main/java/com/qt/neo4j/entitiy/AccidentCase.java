@@ -3,11 +3,6 @@ package com.qt.neo4j.entitiy;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * 创建案件实体
@@ -88,4 +83,15 @@ public class AccidentCase {
         this.pfMoney = pfMoney;
     }
 
+    @Override
+    public String toString() {
+        return "AccidentCase{" +
+                "id=" + id +
+                ", caseId='" + caseId + '\'' +
+                ", accTime='" + accTime + '\'' +
+                ", orgno='" + orgno + '\'' +
+                ", qzflag='" + qzflag + '\'' +
+                ", pfMoney='" + pfMoney + '\'' +
+                '}';
+    }
 }
