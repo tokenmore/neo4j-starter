@@ -115,8 +115,8 @@ public class SetRelationPropertiesUtils {
             lingKuanRelation,List<Node> nodeList,List<Links> linksList){
         int nodeLen;
         for(int i=0;i<lingKuanRelation.size();i++){
-            Customer customer = lingKuanRelation.get(i).getStartnode();
-            AccidentCase accidentCase = lingKuanRelation.get(i).getEndnode();
+            Customer customer = lingKuanRelation.get(i).getCustomer();
+            AccidentCase accidentCase = lingKuanRelation.get(i).getAccidentCase();
             Node startNode = SetObjectPropertyUtils.setCustomerProperty(customer);
             Node endNode = SetObjectPropertyUtils.setAccidentProperty(accidentCase);
             int flag = ListUtils.judgeCustomerExistInList(nodeList, startNode);
@@ -162,8 +162,8 @@ public class SetRelationPropertiesUtils {
             baoAnRelations,List<Node> nodeList,List<Links> linksList){
         int nodeLen;
         for(int i=0;i<baoAnRelations.size();i++){
-            Customer customer = baoAnRelations.get(i).getStartnode();
-            AccidentCase accidentCase = baoAnRelations.get(i).getEndnode();
+            Customer customer = baoAnRelations.get(i).getCustomer();
+            AccidentCase accidentCase = baoAnRelations.get(i).getAccidentCase();
             Node startNode = SetObjectPropertyUtils.setCustomerProperty(customer);
             Node endNode = SetObjectPropertyUtils.setAccidentProperty(accidentCase);
             int flag = ListUtils.judgeCustomerExistInList(nodeList, startNode);
@@ -212,8 +212,8 @@ public class SetRelationPropertiesUtils {
             userTelRelations,List<Node> nodeList,List<Links> linksList){
         int nodeLen  ;
         for(int i=0;i<userTelRelations.size();i++){
-            Customer customer = userTelRelations.get(i).getStarnode();
-            Telephone telephone = userTelRelations.get(i).getEndnode();
+            Customer customer = userTelRelations.get(i).getCustomer();
+            Telephone telephone = userTelRelations.get(i).getTelephone();
             Node startNode = SetObjectPropertyUtils.setCustomerProperty(customer);
             Node endNode = SetObjectPropertyUtils.setTelephoneProperty(telephone);
             int flag = ListUtils.judgeCustomerExistInList(nodeList, startNode);
@@ -260,8 +260,8 @@ public class SetRelationPropertiesUtils {
             touBaoRelationList,List<Node> nodeList,List<Links> linksList){
         int nodeLen ;
         for(int i=0;i<touBaoRelationList.size();i++){
-            Customer customer = touBaoRelationList.get(i).getStartnode();
-            AccidentCase accidentCase = touBaoRelationList.get(i).getEndnode();
+            Customer customer = touBaoRelationList.get(i).getCustomer();
+            AccidentCase accidentCase = touBaoRelationList.get(i).getAccidentCase();
             Node startNode = SetObjectPropertyUtils.setCustomerProperty(customer);
             Node endNode = SetObjectPropertyUtils.setAccidentProperty(accidentCase);
             int flag = ListUtils.judgeCustomerExistInList(nodeList, startNode);
@@ -308,8 +308,8 @@ public class SetRelationPropertiesUtils {
             beiBaoRelationList,List<Node> nodeList,List<Links> linksList){
         int nodeLen ;
         for(int i=0;i<beiBaoRelationList.size();i++){
-            Customer customer = beiBaoRelationList.get(i).getStartnode();
-            AccidentCase accidentCase = beiBaoRelationList.get(i).getEndnode();
+            Customer customer = beiBaoRelationList.get(i).getCustomer();
+            AccidentCase accidentCase = beiBaoRelationList.get(i).getAccidentCase();
             Node startNode = SetObjectPropertyUtils.setCustomerProperty(customer);
             Node endNode = SetObjectPropertyUtils.setAccidentProperty(accidentCase);
             int flag = ListUtils.judgeCustomerExistInList(nodeList, startNode);

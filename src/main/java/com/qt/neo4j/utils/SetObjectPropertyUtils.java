@@ -10,6 +10,7 @@ public class SetObjectPropertyUtils {
         node.setCustomerName(customer.getCustomerName());
         node.setCustomerId(customer.getCustomerId());
         node.setValue(RandomUtil.getRandomColor());
+        node.setType(customer.getClass().getSimpleName());
         return node;
     }
 
@@ -18,6 +19,7 @@ public class SetObjectPropertyUtils {
         node.setLabelName(telephone.getTelnumber());
         node.setTelId(telephone.getTelnumber());
         node.setValue(RandomUtil.getRandomColor());
+        node.setType(telephone.getClass().getSimpleName());
         return node;
     }
 
@@ -30,6 +32,7 @@ public class SetObjectPropertyUtils {
         node.setQzflag(accidentCase.getQzflag());
         node.setOrgno(accidentCase.getOrgno());
         node.setValue(RandomUtil.getRandomColor());
+        node.setType(accidentCase.getClass().getSimpleName());
         return node;
     }
 
@@ -40,6 +43,7 @@ public class SetObjectPropertyUtils {
         node.setLabelName(employee.getEmpId());
         node.setEmpid(employee.getEmpId());
         node.setValue(RandomUtil.getRandomColor());
+        node.setType(employee.getClass().getSimpleName());
         return node;
     }
 
@@ -50,6 +54,7 @@ public class SetObjectPropertyUtils {
         node.setHospitaLevel(hospital.getHospitaLevel());
         node.setHospitalId(hospital.getHospitaLevel());
         node.setValue(RandomUtil.getRandomColor());
+        node.setType(hospital.getClass().getSimpleName());
         return node;
     }
 }

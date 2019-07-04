@@ -3,37 +3,36 @@ package com.qt.neo4j.entitiy;
 import org.neo4j.ogm.annotation.EndNode;
 import org.neo4j.ogm.annotation.RelationshipEntity;
 import org.neo4j.ogm.annotation.StartNode;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @RelationshipEntity(type = "是被保人")
 public class BeiBaoRelation extends BaseRelation {
     @StartNode
-    private Customer startnode;
+    private Customer customer;
 
     @EndNode
-    private AccidentCase endnode;
+    private AccidentCase accidentCase;
 
     public BeiBaoRelation() {
     }
 
-    public BeiBaoRelation(Customer startnode, AccidentCase endnode) {
-        this.startnode = startnode;
-        this.endnode = endnode;
+    public BeiBaoRelation(Customer customer, AccidentCase accidentCase) {
+        this.customer = customer;
+        this.accidentCase = accidentCase;
     }
 
-    public Customer getStartnode() {
-        return startnode;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setStartnode(Customer startnode) {
-        this.startnode = startnode;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public AccidentCase getEndnode() {
-        return endnode;
+    public AccidentCase getAccidentCase() {
+        return accidentCase;
     }
 
-    public void setEndnode(AccidentCase endnode) {
-        this.endnode = endnode;
+    public void setAccidentCase(AccidentCase accidentCase) {
+        this.accidentCase = accidentCase;
     }
 }

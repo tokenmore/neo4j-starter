@@ -3,6 +3,7 @@ package com.qt.neo4j.entitiy;
 public class Node {
 
     private String labelName;
+    private String type;
 
     private String customerId;
     private String customerName;
@@ -36,6 +37,24 @@ public class Node {
     }
 
     public Node() {
+    }
+
+    public Node(String labelName, String type, String customerId, String customerName, String telId, String hospitalId, String hospitaLevel, String hospitalName, String empid, String accTime, String caseId, String orgno, String pfmoney, String qzflag, int value) {
+        this.labelName = labelName;
+        this.type = type;
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.telId = telId;
+        this.hospitalId = hospitalId;
+        this.hospitaLevel = hospitaLevel;
+        this.hospitalName = hospitalName;
+        this.empid = empid;
+        this.accTime = accTime;
+        this.caseId = caseId;
+        this.orgno = orgno;
+        this.pfmoney = pfmoney;
+        this.qzflag = qzflag;
+        this.value = value;
     }
 
     public String getLabelName() {
@@ -148,6 +167,14 @@ public class Node {
 
     public void setQzflag(String qzflag) {
         this.qzflag = qzflag;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override

@@ -7,31 +7,31 @@ import org.neo4j.ogm.annotation.StartNode;
 @RelationshipEntity(type = "使用")
 public class UserTelRelation  extends BaseRelation{
     @StartNode
-    private Customer starnode;
+    private Customer customer;
     @EndNode
-    private Telephone endnode;
+    private Telephone telephone;
 
     public UserTelRelation() {
     }
 
-    public UserTelRelation(Customer starnode, Telephone endnode) {
-        this.starnode = starnode;
-        this.endnode = endnode;
+    public UserTelRelation(Customer customer, Telephone telephone) {
+        this.customer = customer;
+        this.telephone = telephone;
     }
 
-    public Customer getStarnode() {
-        return starnode;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setStarnode(Customer starnode) {
-        this.starnode = starnode;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public Telephone getEndnode() {
-        return endnode;
+    public Telephone getTelephone() {
+        return telephone;
     }
 
-    public void setEndnode(Telephone endnode) {
-        this.endnode = endnode;
+    public void setTelephone(Telephone telephone) {
+        this.telephone = telephone;
     }
 }

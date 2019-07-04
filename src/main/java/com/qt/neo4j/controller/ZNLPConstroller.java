@@ -124,14 +124,14 @@ public class ZNLPConstroller {
         int index = 0;
         for (int i=0;i<telRelation.size();i++){
             Node custNode = new Node();
-            Customer customer = telRelation.get(i).getStarnode();
+            Customer customer = telRelation.get(i).getCustomer();
             custNode.setLabelName(customer.getCustomerName());
             custNode.setCustomerName(customer.getCustomerName());
             custNode.setCustomerId(customer.getCustomerId());
             custNode.setValue(RandomUtil.getRandomColor());
             nodeList.add(custNode);
             Node telNode = new Node();
-            Telephone telephone = telRelation.get(i).getEndnode();
+            Telephone telephone = telRelation.get(i).getTelephone();
             telNode.setLabelName(telephone.getTelnumber());
             telNode.setTelId(telephone.getTelnumber());
             telNode.setValue(RandomUtil.getRandomColor());
@@ -147,13 +147,13 @@ public class ZNLPConstroller {
         for(int i=0;i<allTouBaoRelation.size();i++){
             Node custNode = new Node();
             //从查询结果集中获取到customer对象
-            Customer customer = allTouBaoRelation.get(i).getStartnode();
+            Customer customer = allTouBaoRelation.get(i).getCustomer();
             custNode.setLabelName(customer.getCustomerName());
             custNode.setCustomerName(customer.getCustomerName());
             custNode.setCustomerId(customer.getCustomerId());
             custNode.setValue(RandomUtil.getRandomColor());
             Node accNode = new Node();
-            AccidentCase accidentCase = allTouBaoRelation.get(i).getEndnode();
+            AccidentCase accidentCase = allTouBaoRelation.get(i).getAccidentCase();
             accNode.setLabelName(accidentCase.getCaseId());
             accNode.setAccTime(accidentCase.getAccTime());
             accNode.setCaseId(accidentCase.getCaseId());
@@ -199,12 +199,12 @@ public class ZNLPConstroller {
         for(int i=0;i<userTelRelations.size();i++) {
             Node startnode = new Node();
             Node endnode = new Node();
-            Customer customer = userTelRelations.get(i).getStarnode();
+            Customer customer = userTelRelations.get(i).getCustomer();
             startnode.setLabelName(customer.getCustomerName());
             startnode.setCustomerId(customer.getCustomerId());
             startnode.setCustomerName(customer.getCustomerName());
             startnode.setValue(RandomUtil.getRandomColor());
-            Telephone telephone = userTelRelations.get(i).getEndnode();
+            Telephone telephone = userTelRelations.get(i).getTelephone();
             endnode.setLabelName(telephone.getTelnumber());
             endnode.setTelId(telephone.getTelnumber());
             endnode.setValue(RandomUtil.getRandomColor());

@@ -14,9 +14,9 @@ public class GetObjectFromRelation {
     public static HashMap<String,Object> getObjectfromTouBaoRelation(List<TouBaoRelation> touBaoRelationList,
                                                            HashMap<String,Object> map){
         for(int i=0;i<touBaoRelationList.size();i++){
-            Customer customer = touBaoRelationList.get(i).getStartnode();
+            Customer customer = touBaoRelationList.get(i).getCustomer();
 
-            AccidentCase accidentCase = touBaoRelationList.get(i).getEndnode();
+            AccidentCase accidentCase = touBaoRelationList.get(i).getAccidentCase();
         }
         return map;
     }

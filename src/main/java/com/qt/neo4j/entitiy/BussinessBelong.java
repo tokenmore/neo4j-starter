@@ -7,12 +7,7 @@ import org.neo4j.ogm.annotation.*;
  */
 
 @RelationshipEntity(type = "BussinessBelong")
-public class BussinessBelong {
-
-    @Id
-    @GeneratedValue
-    private Long id;
-
+public class BussinessBelong extends BaseRelation{
     @EndNode
     private  Employee employee;
 

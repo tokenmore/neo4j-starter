@@ -66,7 +66,8 @@ public class TestController {
     }
 
     @RequestMapping("/real5/{caseId}")
-    public HashMap<String,Object> real5(@PathVariable("caseId")String caseId ){
+    public HashMap<String,Object> real5(@PathVariable("caseId") String caseId ){
+        System.out.println(caseId);
         HashMap<String,Object> map = new HashMap<>();
         List<Node> nodeList = new ArrayList<>();
         List<Links> linkList = new ArrayList<>();
@@ -123,4 +124,12 @@ public class TestController {
         return touBaoRelationRepsitory.findTouBaoRelationBycaseId(caseId);
     }
 
+    @Autowired
+    private Neo4jRepositity neo4jRepositity;
+
+    @RequestMapping("/getAll")
+    public List<BaseRelation> getAllNodeAndRelation(){
+        List<BaseRelation> list = neo4jRepositity.getAllNodeAndRelation();
+        return list;
+    }
 }
