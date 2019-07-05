@@ -8,6 +8,8 @@ public abstract class BaseRelation {
     @GeneratedValue
     private Long id;
 
+
+
     public Long getId() {
         return id;
     }

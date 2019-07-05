@@ -14,19 +14,19 @@ import java.util.List;
 @Repository
 public interface BussinessBelongRepsitory extends Neo4jRepository<BussinessBelong,Long> {
     @Query("match (n1:AccidentCase),(n2:Employee) where n1.caseId={caseId} and n2.empId={empId} p=create " +
-            "(n2)-[r:BussinessBelong]->(n2) return p")
+            "(n2)-[r:业务归属于]->(n2) return p")
     public List<BussinessBelong> createBussinessBeLongWithStartNodeANdEndNode(@Param("caseId") String caseId,@Param("empId") String empId);
 
     //查询所有案件和员工的信息
-    @Query("match p=(n:AccidentCase)-[r:BussinessBelong]-(n1:Employee) return p " )
+    @Query("match p=(n:AccidentCase)-[r:业务归属于]-(n1:Employee) return p " )
     public List<BussinessBelong> findAllBussinessBeLongs();
 
     //根据员工号查询所有案件和员工的信息
-    @Query("match p=(n:AccidentCase)-[r:BussinessBelong]-(n1:Employee) where n1.empId={empId} return p" )
+    @Query("match p=(n:AccidentCase)-[r:业务归属于]-(n1:Employee) where n1.empId={empId} return p" )
     public List<BussinessBelong> findAllBussinessBeLongsByEmpId(@Param("empId") String empId);
 
     //根据案件id查询业务员和案件的关系
-    @Query("match p=(n:AccidentCase)-[r:BussinessBelong]-(n1:Employee) where n.caseId={caseId} return p" )
+    @Query("match p=(n:AccidentCase)-[r:业务归属于]-(n1:Employee) where n.caseId={caseId} return p" )
     public List<BussinessBelong> findAllBussinessBeLongsBycaseId(@Param("caseId") String caseId);
 
 }

@@ -36,4 +36,6 @@ public class RelationResult {
     public void setLinksList(List<Links> linksList) {
         this.linksList = linksList;
     }
+
+
 }

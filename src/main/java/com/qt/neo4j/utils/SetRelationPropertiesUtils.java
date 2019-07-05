@@ -50,7 +50,6 @@ public class SetRelationPropertiesUtils {
 
             }
         }
-        System.out.println(nodeList);
         RelationResult result = new RelationResult();
         result.setNodeList(nodeList);
         result.setLinksList(linksList);

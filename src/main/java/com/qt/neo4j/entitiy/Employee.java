@@ -1,14 +1,9 @@
 package com.qt.neo4j.entitiy;
 
-import org.neo4j.ogm.annotation.GeneratedValue;
-import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * 业务员实体
@@ -19,7 +14,7 @@ public class Employee extends BaseNode{
 
     private String empId;
 
-    @Relationship(type = "BussinessBelong",direction = Relationship.INCOMING)
+    @Relationship(type = "业务归属于",direction = Relationship.INCOMING)
     private List<AccidentCase> accidentCases;
 
     public Employee() {

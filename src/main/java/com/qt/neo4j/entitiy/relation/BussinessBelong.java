@@ -8,7 +8,7 @@ import org.neo4j.ogm.annotation.*;
  * 业务归属于关系
  */
 
-@RelationshipEntity(type = "BussinessBelong")
+@RelationshipEntity(type = "业务归属于")
 public class BussinessBelong extends BaseRelation{
     @EndNode
     private Employee employee;

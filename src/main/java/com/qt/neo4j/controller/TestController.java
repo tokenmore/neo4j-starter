@@ -35,6 +35,9 @@ public class TestController {
     private BeiBaoRelationRepsitory beiBaoRelationRepsitory;
     @Autowired // 客户=》 案件 （是领款人）
     private LingKuanRelationRepsitory lingKuanRelationRepsitory;
+    @Autowired
+    private AccidentCaseRepository accidentCaseRepository;
+
     @RequestMapping("/getCustomerIdByCaseId")
     public String getCustomerIdByCaseId(){
         return baoAnRelationRepsitory.getCustomerIdByCaseId("CHQ153000008413");
@@ -131,13 +134,88 @@ public class TestController {
     @RequestMapping("/getAll")
     public List<BaseRelation> getAllNodeAndRelation(){
         List<BaseRelation> list = neo4jRepositity.getAllNodeAndRelation();
-        System.out.println(list.size());
         for (int i=0;i<list.size();i++){
-            String classname = list.get(i).getClass().getSimpleName();
-            if(classname == "TouBaoRelation"){
-                TouBaoRelation touBaoRelation = (TouBaoRelation)list.get(i);
-            }
+            String name = list.get(i).getClass().getSimpleName();
+           if(name.equals("TouBaoRelation")){
+               Class<? extends BaseRelation> aClass = list.get(i).getClass();
+               BaseRelation cast = aClass.cast(new TouBaoRelation());
+               System.out.println(cast);
+           }else if(name.equals("UserTelRelation")){
+               Class<? extends BaseRelation> aClass = list.get(i).getClass();
+               BaseRelation cast = aClass.cast(new UserTelRelation());
+               System.out.println(cast);
+           }else if(name.equals("BaoAnRelation")){
+               Class<? extends BaseRelation> aClass = list.get(i).getClass();
+               BaseRelation cast = aClass.cast(new BaoAnRelation());
+
+               System.out.println(cast);
+           }else if(name.equals("LingKuanRelation")){
+               Class<? extends BaseRelation> aClass = list.get(i).getClass();
+               BaseRelation cast = aClass.cast(new LingKuanRelation());
+               System.out.println(cast);
+           }else if(name.equals("BaoAnTelRelation")){
+               Class<? extends BaseRelation> aClass = list.get(i).getClass();
+               BaseRelation cast = aClass.cast(new BaoAnTelRelation());
+               System.out.println(cast);
+           }else if(name.equals("BeiBaoRelation")){
+               Class<? extends BaseRelation> aClass = list.get(i).getClass();
+               BaseRelation cast = aClass.cast(new BeiBaoRelation());
+               System.out.println(cast);
+           }else if(name.equals("BussinessBelong")){
+               Class<? extends BaseRelation> aClass = list.get(i).getClass();
+               BaseRelation cast = aClass.cast(new BussinessBelong());
+               System.out.println(cast);
+           }else if(name.equals("LingKuanTelRelation")){
+               Class<? extends BaseRelation> aClass = list.get(i).getClass();
+               BaseRelation cast = aClass.cast(new LingKuanTelRelation());
+               System.out.println(cast);
+           }else{
+               Class<? extends BaseRelation> aClass = list.get(i).getClass();
+               BaseRelation cast = aClass.cast(new RescueInRelation());
+               System.out.println(cast);
+           }
         }
         return list;
+    }
+
+    @RequestMapping("/getAllCaseId")
+    public HashMap<String,Object> getAllCaseId(){
+        HashMap<String,Object> result = new HashMap<>();
+        List<String> allCaseId = accidentCaseRepository.getAllCaseId();
+        List<Node> nodeList = new ArrayList<>();
+        List<Links> linkList = new ArrayList<>();
+        RelationResult rs = new RelationResult(nodeList,linkList);
+        for (int i=0;i<allCaseId.size();i++){
+            rs = getFullRelationByCaseId(allCaseId.get(i),rs.getNodeList(),rs.getLinksList());
+        }
+        result.put("nodes",rs.getNodeList());
+        result.put("links",rs.getLinksList());
+        return result;
+    }
+
+
+    public  RelationResult getFullRelationByCaseId(String caseId,List<Node> nodeList,List<Links> linkList){
+        HashMap<String,Object> map = new HashMap<>();
+        List<LingKuanRelation> lingKuanRelationBycaseId = lingKuanRelationRepsitory.findLingKuanRelationBycaseId(caseId);
+        RelationResult r1 = SetRelationPropertiesUtils.setLingKuanPersonPropertiesUtils(lingKuanRelationBycaseId, nodeList, linkList);
+        List<BaoAnRelation> baoAnRelationBycaseId = baoAnRelationRepsitory.findBaoAnRelationBycaseId(caseId);
+        RelationResult r2 = SetRelationPropertiesUtils.setBaoAnPersonPropertiesUtils(baoAnRelationBycaseId, r1.getNodeList(), r1.getLinksList());
+        List<TouBaoRelation> touBaoRelationBycaseId = touBaoRelationRepsitory.findTouBaoRelationBycaseId(caseId);
+        RelationResult r3 = SetRelationPropertiesUtils.setTouBaoPersonPropertiesUtils(touBaoRelationBycaseId, r2.getNodeList(), r2.getLinksList());
+        List<BeiBaoRelation> beiBaoRelationBycaseId = beiBaoRelationRepsitory.findBeiBaoRelationBycaseId(caseId);
+        RelationResult r4 = SetRelationPropertiesUtils.setBeiBaoPersonPropertiesUtils(beiBaoRelationBycaseId, r3.getNodeList(), r3.getLinksList());
+        List<LingKuanTelRelation> lingKuanTelRelationByCaseId = lingKuanTelRelationRepsitory.getLingKuanTelRelationByCaseId(caseId);
+        RelationResult r5 = SetRelationPropertiesUtils.setLingKuanTelPropertiesUtils(lingKuanTelRelationByCaseId, r4.getNodeList(), r4.getLinksList());
+        List<BaoAnTelRelation> baoAnTelRelationBycaseId = baoAnTelRelationRepsitory.getBaoAnTelRelationBycaseId(caseId);
+        RelationResult r6 = SetRelationPropertiesUtils.setBaoAnTelPropertiesUtils(baoAnTelRelationBycaseId, r5.getNodeList(), r5.getLinksList());
+        //通过案件Id获取对应的客户Id，然后通过客户Id，获取对应的手机号
+        String customerId = touBaoRelationRepsitory.getCustomerIdByCaseId(caseId);
+        List<UserTelRelation> userTelRelationByCustomerId = useTelRepsitory.findUserTelRelationByCustomerId(customerId);
+        RelationResult r7 = SetRelationPropertiesUtils.setUseTelPropertiesUtils(userTelRelationByCustomerId, r6.getNodeList(), r6.getLinksList());
+        List<BussinessBelong> allBussinessBeLongsBycaseId = bussinessBelongRepsitory.findAllBussinessBeLongsBycaseId(caseId);
+        RelationResult r8 = SetRelationPropertiesUtils.setBussineeBelongPropertiesUtils(allBussinessBeLongsBycaseId, r7.getNodeList(), r7.getLinksList());
+        List<RescueInRelation> rescueInRelationByCaseId = rescueRespository.findRescueInRelationByCaseId(caseId);
+        RelationResult r9 = SetRelationPropertiesUtils.setRescueInPropertiesUtils(rescueInRelationByCaseId, r8.getNodeList(), r8.getLinksList());
+        return r9;
     }
 }
