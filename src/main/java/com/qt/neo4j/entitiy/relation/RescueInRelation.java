@@ -2,12 +2,13 @@ package com.qt.neo4j.entitiy.relation;
 
 import com.qt.neo4j.entitiy.AccidentCase;
 import com.qt.neo4j.entitiy.Hospital;
-import org.neo4j.ogm.annotation.EndNode;
-import org.neo4j.ogm.annotation.RelationshipEntity;
-import org.neo4j.ogm.annotation.StartNode;
+import org.neo4j.ogm.annotation.*;
 
 @RelationshipEntity(type = "治疗于")
-public class RescueInRelation extends BaseRelation {
+public class RescueInRelation  {
+    @Id
+    @GeneratedValue
+    private Long id;
     @StartNode
     private AccidentCase accidentCase;
 
@@ -15,6 +16,20 @@ public class RescueInRelation extends BaseRelation {
     private Hospital hospital;
 
     public RescueInRelation() {
+    }
+
+    public RescueInRelation(Long id, AccidentCase accidentCase, Hospital hospital) {
+        this.id = id;
+        this.accidentCase = accidentCase;
+        this.hospital = hospital;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public RescueInRelation(AccidentCase accidentCase, Hospital hospital) {

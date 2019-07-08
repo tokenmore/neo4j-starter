@@ -24,6 +24,6 @@ public interface AccidentCaseRepository extends Neo4jRepository<AccidentCase,Lon
     public  int countAccidentCase();
 
     //获取所有案件的caseId
-    @Query("match (n:AccidentCase) return n.caseId limit 10")
+    @Query("match (n:AccidentCase) return n.caseId limit 1")
     public List<String> getAllCaseId();
 }

@@ -9,15 +9,31 @@ import org.neo4j.ogm.annotation.*;
  */
 
 @RelationshipEntity(type = "业务归属于")
-public class BussinessBelong extends BaseRelation{
+public class BussinessBelong {
     @EndNode
     private Employee employee;
 
     @StartNode
     private AccidentCase accidentCase;
-
+    @Id
+    @GeneratedValue
+    private Long id;
 
     public BussinessBelong() { }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public BussinessBelong(Employee employee, AccidentCase accidentCase, Long id) {
+        this.employee = employee;
+        this.accidentCase = accidentCase;
+        this.id = id;
+    }
 
     public BussinessBelong(Employee employee, AccidentCase accidentCase) {
         this.employee = employee;

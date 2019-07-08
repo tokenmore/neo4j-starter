@@ -2,12 +2,13 @@ package com.qt.neo4j.entitiy.relation;
 
 import com.qt.neo4j.entitiy.Customer;
 import com.qt.neo4j.entitiy.Telephone;
-import org.neo4j.ogm.annotation.EndNode;
-import org.neo4j.ogm.annotation.RelationshipEntity;
-import org.neo4j.ogm.annotation.StartNode;
+import org.neo4j.ogm.annotation.*;
 
 @RelationshipEntity(type = "使用")
-public class UserTelRelation  extends BaseRelation {
+public class UserTelRelation  {
+    @Id
+    @GeneratedValue
+    private Long id;
     @StartNode
     private Customer customer;
     @EndNode
@@ -16,7 +17,21 @@ public class UserTelRelation  extends BaseRelation {
     public UserTelRelation() {
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public UserTelRelation(Customer customer, Telephone telephone) {
+        this.customer = customer;
+        this.telephone = telephone;
+    }
+
+    public UserTelRelation(Long id, Customer customer, Telephone telephone) {
+        this.id = id;
         this.customer = customer;
         this.telephone = telephone;
     }

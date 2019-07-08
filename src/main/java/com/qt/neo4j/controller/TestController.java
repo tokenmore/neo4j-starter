@@ -1,7 +1,8 @@
 package com.qt.neo4j.controller;
 
 import com.qt.neo4j.dao.*;
-import com.qt.neo4j.entitiy.*;
+import com.qt.neo4j.entitiy.Links;
+import com.qt.neo4j.entitiy.Node;
 import com.qt.neo4j.entitiy.relation.*;
 import com.qt.neo4j.utils.RelationResult;
 import com.qt.neo4j.utils.SetRelationPropertiesUtils;
@@ -132,48 +133,10 @@ public class TestController {
     private Neo4jRepositity neo4jRepositity;
 
     @RequestMapping("/getAll")
-    public List<BaseRelation> getAllNodeAndRelation(){
-        List<BaseRelation> list = neo4jRepositity.getAllNodeAndRelation();
+    public List<Object> getAllNodeAndRelation(){
+        List<Object> list = neo4jRepositity.getAllNodeAndRelation();
         for (int i=0;i<list.size();i++){
-            String name = list.get(i).getClass().getSimpleName();
-           if(name.equals("TouBaoRelation")){
-               Class<? extends BaseRelation> aClass = list.get(i).getClass();
-               BaseRelation cast = aClass.cast(new TouBaoRelation());
-               System.out.println(cast);
-           }else if(name.equals("UserTelRelation")){
-               Class<? extends BaseRelation> aClass = list.get(i).getClass();
-               BaseRelation cast = aClass.cast(new UserTelRelation());
-               System.out.println(cast);
-           }else if(name.equals("BaoAnRelation")){
-               Class<? extends BaseRelation> aClass = list.get(i).getClass();
-               BaseRelation cast = aClass.cast(new BaoAnRelation());
-
-               System.out.println(cast);
-           }else if(name.equals("LingKuanRelation")){
-               Class<? extends BaseRelation> aClass = list.get(i).getClass();
-               BaseRelation cast = aClass.cast(new LingKuanRelation());
-               System.out.println(cast);
-           }else if(name.equals("BaoAnTelRelation")){
-               Class<? extends BaseRelation> aClass = list.get(i).getClass();
-               BaseRelation cast = aClass.cast(new BaoAnTelRelation());
-               System.out.println(cast);
-           }else if(name.equals("BeiBaoRelation")){
-               Class<? extends BaseRelation> aClass = list.get(i).getClass();
-               BaseRelation cast = aClass.cast(new BeiBaoRelation());
-               System.out.println(cast);
-           }else if(name.equals("BussinessBelong")){
-               Class<? extends BaseRelation> aClass = list.get(i).getClass();
-               BaseRelation cast = aClass.cast(new BussinessBelong());
-               System.out.println(cast);
-           }else if(name.equals("LingKuanTelRelation")){
-               Class<? extends BaseRelation> aClass = list.get(i).getClass();
-               BaseRelation cast = aClass.cast(new LingKuanTelRelation());
-               System.out.println(cast);
-           }else{
-               Class<? extends BaseRelation> aClass = list.get(i).getClass();
-               BaseRelation cast = aClass.cast(new RescueInRelation());
-               System.out.println(cast);
-           }
+            System.out.println(list.get(i));
         }
         return list;
     }

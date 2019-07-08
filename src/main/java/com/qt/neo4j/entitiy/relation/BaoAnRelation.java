@@ -2,12 +2,14 @@ package com.qt.neo4j.entitiy.relation;
 
 import com.qt.neo4j.entitiy.AccidentCase;
 import com.qt.neo4j.entitiy.Customer;
-import org.neo4j.ogm.annotation.EndNode;
-import org.neo4j.ogm.annotation.RelationshipEntity;
-import org.neo4j.ogm.annotation.StartNode;
+import org.neo4j.ogm.annotation.*;
 
 @RelationshipEntity(type = "是报案人")
-public class BaoAnRelation extends BaseRelation {
+public class BaoAnRelation  {
+    @Id
+    @GeneratedValue
+    private Long id;
+
     @StartNode
     private Customer customer;
 
@@ -15,6 +17,20 @@ public class BaoAnRelation extends BaseRelation {
     private AccidentCase accidentCase;
 
     public BaoAnRelation() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public BaoAnRelation(Long id, Customer customer, AccidentCase accidentCase) {
+        this.id = id;
+        this.customer = customer;
+        this.accidentCase = accidentCase;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Customer getCustomer() {
