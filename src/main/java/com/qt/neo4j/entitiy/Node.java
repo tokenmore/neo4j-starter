@@ -1,7 +1,7 @@
 package com.qt.neo4j.entitiy;
 
 public class Node {
-
+    private Long id;
     private String labelName;
     private String type;
 
@@ -37,6 +37,33 @@ public class Node {
     }
 
     public Node() {
+    }
+
+    public Node(Long id, String labelName, String type, String customerId, String customerName, String telId, String hospitalId, String hospitaLevel, String hospitalName, String empid, String accTime, String caseId, String orgno, String pfmoney, String qzflag, int value) {
+        this.id = id;
+        this.labelName = labelName;
+        this.type = type;
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.telId = telId;
+        this.hospitalId = hospitalId;
+        this.hospitaLevel = hospitaLevel;
+        this.hospitalName = hospitalName;
+        this.empid = empid;
+        this.accTime = accTime;
+        this.caseId = caseId;
+        this.orgno = orgno;
+        this.pfmoney = pfmoney;
+        this.qzflag = qzflag;
+        this.value = value;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Node(String labelName, String type, String customerId, String customerName, String telId, String hospitalId, String hospitaLevel, String hospitalName, String empid, String accTime, String caseId, String orgno, String pfmoney, String qzflag, int value) {

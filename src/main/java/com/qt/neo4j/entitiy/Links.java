@@ -1,6 +1,7 @@
 package com.qt.neo4j.entitiy;
 
 public class Links {
+
     private int source;
     private int target;
     private String relation;
