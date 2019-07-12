@@ -1,0 +1,3 @@
+导入neo4j数据 
+cmd命令
+neo4j-admin import --database=graph3.db --nodes=D:/neo/nodes_case.csv --nodes=D:/neo/nodes_cust.csv --nodes=D:/neo/nodes_tel.csv --nodes=D:/neo/nodes_empo.csv --nodes=D:/neo/nodes_hospital.csv --relationships=D:/neo/relation_apid_to_case.csv --relationships=D:/neo/relation_case_to_emp.csv --relationships=D:/neo/relation_case_to_hostpital.csv --relationships=D:/neo/relation_cust_to_case.csv --relationships=D:/neo/relation_cust_to_tel.csv --relationships=D:/neo/relation_pid_to_case.csv --relationships=D:/neo/relation_repid_to_case.csv --relationships=D:/neo/relation_reptel_to_case.csv --relationships=D:/neo/relation_tel_to_case.csv --ignore-missing-nodes
