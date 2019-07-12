@@ -13,7 +13,7 @@ public interface TouBaoRelationRepsitory extends Neo4jRepository<TouBaoRelation,
 
     @Query("match p=(n:Customer)-[r:是投保人]->(n1:AccidentCase) return count(p)")
     public int countAllTouBaoRelations();
-    @Query("match (n1:Customer)-[r:是投保人]->(n2:AccidentCase) return n1,n2,r ")
+    @Query("match (n1:Customer)-[r:是投保人]->(n2:AccidentCase) return n1,n2,r limit 1000")
     public List<TouBaoRelation> findAllTouBaoRelation();
 
     @Query("match p=(n1:Customer)-[r:是投保人]->(n2:AccidentCase)where n1.customerId={customerId} return p ")

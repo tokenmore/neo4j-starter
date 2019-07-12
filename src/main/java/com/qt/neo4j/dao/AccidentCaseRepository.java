@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface AccidentCaseRepository extends Neo4jRepository<AccidentCase,Long> {
     //查询所有案件实体
-    @Query("match (n:AccidentCase) return n limit 100")
+    @Query("match (n:AccidentCase) return n,id(n) limit 100")
     public List<AccidentCase> getAllAccidentCaseLabels();
     //根据caseId查询案件实体
     @Query("match (n:AccidentCase) where n.caseId ={caseId} return n")

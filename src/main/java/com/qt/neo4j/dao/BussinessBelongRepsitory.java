@@ -18,7 +18,7 @@ public interface BussinessBelongRepsitory extends Neo4jRepository<BussinessBelon
     public List<BussinessBelong> createBussinessBeLongWithStartNodeANdEndNode(@Param("caseId") String caseId,@Param("empId") String empId);
 
     //查询所有案件和员工的信息
-    @Query("match p=(n:AccidentCase)-[r:业务归属于]-(n1:Employee) return p " )
+    @Query("match p=(n:AccidentCase)-[r:业务归属于]-(n1:Employee) return p limit 10" )
     public List<BussinessBelong> findAllBussinessBeLongs();
 
     //根据员工号查询所有案件和员工的信息

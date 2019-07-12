@@ -3,11 +3,12 @@ package com.qt.neo4j.utils;
 import com.qt.neo4j.entitiy.Links;
 import com.qt.neo4j.entitiy.Node;
 import org.neo4j.driver.v1.*;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+@Component
 public class Neo4jUtils {
     private static String uri = "bolt://localhost:7687";
     private static  String username = "neo4j";
@@ -20,7 +21,11 @@ public class Neo4jUtils {
         session = driver.session();
     }
 
+    public StatementResult runSql(String sql){
+        StatementResult result = session.run(sql);
+        return  result;
 
+    }
     public HashMap<String,Object> matchNodesAndRelations(String sql){
         HashMap<String, Object> map = new HashMap<>();
         StatementResult result = session.run(sql);
@@ -29,6 +34,7 @@ public class Neo4jUtils {
         int nodelen=nodeList.size();
         while (result.hasNext()){
             Record record = result.next();
+            System.out.println(record.toString());
             Node accident = new Node();
             Node customer = new Node();
             Node employee = new Node();
@@ -43,7 +49,7 @@ public class Neo4jUtils {
             Links useTel = new Links();
             Links rescueIn = new Links();
             Links bussiness = new Links();
-
+            System.out.println(record);
 
             accident.setId(record.get("accidentId").asLong());
             accident.setOrgno(record.get("orgno").asString());
@@ -118,7 +124,6 @@ public class Neo4jUtils {
 
             flag = ListUtils.judgeHospitalExistInList(nodeList,hospital);
             if(flag == -1){
-                System.out.println("hospital nodelen:"+nodelen);
                 rescueIn.setTarget(nodelen);
                 nodeList.add(hospital);
                 nodelen = nodelen+1;
@@ -128,7 +133,6 @@ public class Neo4jUtils {
 
             flag = ListUtils.judgeCustomerExistInList(nodeList,customer);
             if(flag == -1){
-                System.out.println("customer nodelen:"+nodelen);
                 toubao.setSource(nodelen);beibao.setSource(nodelen);
                 baoan.setSource(nodelen);lingkuan.setSource(nodelen);useTel.setSource(nodelen);
                 nodeList.add(customer);

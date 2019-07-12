@@ -13,7 +13,7 @@ public interface UseTelRepsitory extends Neo4jRepository<UserTelRelation,Long> {
     @Query("match p=(n:Customer)-[r:使用]->(n1:Telephone) return count(p)")
     public int countAllTelRelations();
 
-    @Query("match p=(n1:Customer)-[r:使用]->(n2:Telephone) return p ")
+    @Query("match p=(n1:Customer)-[r:使用]->(n2:Telephone) return p limit 1000 ")
     public List<UserTelRelation> findAllTelRelation();
 
     @Query("match p=(n1:Customer)-[r:使用]->(n2:Telephone)where n1.customerId={customerId} return p ")
