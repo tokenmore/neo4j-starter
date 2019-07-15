@@ -42,7 +42,7 @@ public class CustomerService {
             accident.setCaseId(record.get("caseId").asString());
             accident.setQzflag(record.get("qzflag").asString());
             accident.setLabelName(record.get("caseId").asString());
-            accident.setValue(RandomUtil.getRandomColor());
+            accident.setColor(RandomUtil.getRandomColor());
             accident.setType("AccidentCase");
             nodeList.add(accident);
         }
@@ -68,7 +68,7 @@ public class CustomerService {
             accident.setCaseId(record.get("caseId").asString());
             accident.setQzflag(record.get("qzflag").asString());
             accident.setLabelName(record.get("caseId").asString());
-            accident.setValue(RandomUtil.getRandomColor());
+            accident.setColor(RandomUtil.getRandomColor());
             accident.setType("AccidentCase");
             nodeList.add(accident);
         }

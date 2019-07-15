@@ -17,30 +17,12 @@ public class Node {
     private String orgno;
     private String pfmoney;
     private String qzflag;
-    private int value;
-
-    public Node(String labelName, String customerId, String customerName, String telId, String hospitalId, String hospitaLevel, String hospitalName, String empid, String accTime, String caseId, String orgno, String pfmoney, String qzflag, int value) {
-        this.labelName = labelName;
-        this.customerId = customerId;
-        this.customerName = customerName;
-        this.telId = telId;
-        this.hospitalId = hospitalId;
-        this.hospitaLevel = hospitaLevel;
-        this.hospitalName = hospitalName;
-        this.empid = empid;
-        this.accTime = accTime;
-        this.caseId = caseId;
-        this.orgno = orgno;
-        this.pfmoney = pfmoney;
-        this.qzflag = qzflag;
-        this.value = value;
-    }
+    private int color;
 
     public Node() {
     }
 
-    public Node(Long id, String labelName, String type, String customerId, String customerName, String telId, String hospitalId, String hospitaLevel, String hospitalName, String empid, String accTime, String caseId, String orgno, String pfmoney, String qzflag, int value) {
-        this.id = id;
+    public Node(String labelName, String type, String customerId, String customerName, String telId, String hospitalId, String hospitaLevel, String hospitalName, String empid, String accTime, String caseId, String orgno, String pfmoney, String qzflag, int color) {
         this.labelName = labelName;
         this.type = type;
         this.customerId = customerId;
@@ -55,7 +37,7 @@ public class Node {
         this.orgno = orgno;
         this.pfmoney = pfmoney;
         this.qzflag = qzflag;
-        this.value = value;
+        this.color = color;
     }
 
     public Long getId() {
@@ -66,30 +48,20 @@ public class Node {
         this.id = id;
     }
 
-    public Node(String labelName, String type, String customerId, String customerName, String telId, String hospitalId, String hospitaLevel, String hospitalName, String empid, String accTime, String caseId, String orgno, String pfmoney, String qzflag, int value) {
-        this.labelName = labelName;
-        this.type = type;
-        this.customerId = customerId;
-        this.customerName = customerName;
-        this.telId = telId;
-        this.hospitalId = hospitalId;
-        this.hospitaLevel = hospitaLevel;
-        this.hospitalName = hospitalName;
-        this.empid = empid;
-        this.accTime = accTime;
-        this.caseId = caseId;
-        this.orgno = orgno;
-        this.pfmoney = pfmoney;
-        this.qzflag = qzflag;
-        this.value = value;
-    }
-
     public String getLabelName() {
         return labelName;
     }
 
     public void setLabelName(String labelName) {
         this.labelName = labelName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getCustomerId() {
@@ -102,14 +74,6 @@ public class Node {
 
     public String getCustomerName() {
         return customerName;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
     }
 
     public void setCustomerName(String customerName) {
@@ -196,18 +160,20 @@ public class Node {
         this.qzflag = qzflag;
     }
 
-    public String getType() {
-        return type;
+    public int getColor() {
+        return color;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setColor(int color) {
+        this.color = color;
     }
 
     @Override
     public String toString() {
         return "Node{" +
-                "labelName='" + labelName + '\'' +
+                "id=" + id +
+                ", labelName='" + labelName + '\'' +
+                ", type='" + type + '\'' +
                 ", customerId='" + customerId + '\'' +
                 ", customerName='" + customerName + '\'' +
                 ", telId='" + telId + '\'' +
@@ -220,6 +186,7 @@ public class Node {
                 ", orgno='" + orgno + '\'' +
                 ", pfmoney='" + pfmoney + '\'' +
                 ", qzflag='" + qzflag + '\'' +
+                ", color=" + color +
                 '}';
     }
 }

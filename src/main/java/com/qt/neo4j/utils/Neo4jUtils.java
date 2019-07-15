@@ -49,64 +49,22 @@ public class Neo4jUtils {
             Links useTel = new Links();
             Links rescueIn = new Links();
             Links bussiness = new Links();
-            System.out.println(record);
-
-            accident.setId(record.get("accidentId").asLong());
-            accident.setOrgno(record.get("orgno").asString());
-            accident.setPfmoney(record.get("pfmoney").asString());
-            accident.setCaseId(record.get("caseId").asString());
-            accident.setQzflag(record.get("qzflag").asString());
-            accident.setLabelName(record.get("caseId").asString());
-            accident.setValue(RandomUtil.getRandomColor());
-            accident.setType("AccidentCase");
-
-            hospital.setId(record.get("hospitalId").asLong());
-            hospital.setHospitaLevel(record.get("level").asString());
-            hospital.setHospitalId(record.get("hosId").asString());
-            hospital.setHospitalName(record.get("hosName").asString());
-            hospital.setLabelName(record.get("hosName").asString());
-            hospital.setValue(RandomUtil.getRandomColor());
-            hospital.setType("Hospital");
-
-            employee.setId(record.get("employeeId").asLong());
-            employee.setEmpid(record.get("empId").asString());
-            employee.setLabelName(record.get("empId").asString());
-            employee.setValue(RandomUtil.getRandomColor());
-            employee.setType("Employee");
-
-            customer.setId(record.get("customerId").asLong());
-            customer.setCustomerId(record.get("custId").asString());
-            customer.setCustomerName(record.get("customerName").asString());
-            customer.setLabelName(record.get("customerName").asString());
-            customer.setValue(RandomUtil.getRandomColor());
-            customer.setType("Customer");
-
-            telephone.setId(record.get("telphoneId").asLong());
-            telephone.setTelId(record.get("telId").asString());
-            telephone.setLabelName(record.get("telId").asString());
-            telephone.setValue(RandomUtil.getRandomColor());
-            telephone.setType("Telephone");
-            //设置relation
-            rescueIn.setRelation("治疗于");
-            toubao.setRelation("是投保人");
-            baoan.setRelation("是报案人");
-            lingkuan.setRelation("是领款人");
-            beibao.setRelation("是被保人");
-            bussiness.setRelation("业务归属于");
-            lingkuanTel.setRelation("是领款电话");
-            baoanTel.setRelation("是报案电话");
-            useTel.setRelation("使用");
-
+            SetNodeProperties nodeProperties = new SetNodeProperties();
+            accident = nodeProperties.setAccident(record);
+            hospital = nodeProperties.setHospital(record);
+            employee = nodeProperties.setEmployee(record);
+            customer = nodeProperties.setCustomer(record);
+            telephone = nodeProperties.setTelephone(record);
             //设置Value
-            toubao.setValue(RandomUtil.getRandomColor());
-            beibao.setValue(RandomUtil.getRandomColor());
-            baoan.setValue(RandomUtil.getRandomColor());
-            lingkuan.setValue(RandomUtil.getRandomColor());
-            lingkuanTel.setValue(RandomUtil.getRandomColor());
-            baoanTel.setValue(RandomUtil.getRandomColor());
-            useTel.setValue(RandomUtil.getRandomColor());
-            rescueIn.setValue(RandomUtil.getRandomColor());
-            bussiness.setValue(RandomUtil.getRandomColor());
+            toubao.setColor(RandomUtil.getRandomColor());
+            beibao.setColor(RandomUtil.getRandomColor());
+            baoan.setColor(RandomUtil.getRandomColor());
+            lingkuan.setColor(RandomUtil.getRandomColor());
+            lingkuanTel.setColor(RandomUtil.getRandomColor());
+            baoanTel.setColor(RandomUtil.getRandomColor());
+            useTel.setColor(RandomUtil.getRandomColor());
+            rescueIn.setColor(RandomUtil.getRandomColor());
+            bussiness.setColor(RandomUtil.getRandomColor());
 
             int flag = 0;
             System.out.println("nodelist的初始值是："+nodelen);

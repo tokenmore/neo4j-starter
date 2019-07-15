@@ -149,7 +149,7 @@ public class TestController {
                 ",id(n2) as hospitalId,n2.hospitaLevel as level,n2.hospitalId as hosId,n2.hospitalName as" +
                 " hosName,id(n3) as employeeId,n3.empId as empId,id(n4) as customerId,n4.customerId as custId," +
                 "n4.customerName as customerName,id(n5) as telphoneId,n5.telId as telId,type(r1),type(r2)," +
-                "type(r3),type(r4),type(r5),type(r6),type(r7),type(r8),type(r9) limit 100";
+                "type(r3),type(r4),type(r5),type(r6),type(r7),type(r8),type(r9) limit 1";
         HashMap<String, Object> map = utils.matchNodesAndRelations(sql);
         System.out.println(map);
         return map;

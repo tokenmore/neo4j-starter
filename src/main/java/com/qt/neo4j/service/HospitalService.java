@@ -39,7 +39,7 @@ public class HospitalService {
             hospital.setHospitalId(record.get("hosId").asString());
             hospital.setHospitalName(record.get("hosName").asString());
             hospital.setLabelName(record.get("hosName").asString());
-            hospital.setValue(RandomUtil.getRandomColor());
+            hospital.setColor(RandomUtil.getRandomColor());
             hospital.setType("Hospital");
             nodeList.add(hospital);
         }
@@ -63,7 +63,7 @@ public class HospitalService {
             hospital.setHospitalId(record.get("hosId").asString());
             hospital.setHospitalName(record.get("hosName").asString());
             hospital.setLabelName(record.get("hosName").asString());
-            hospital.setValue(RandomUtil.getRandomColor());
+            hospital.setColor(RandomUtil.getRandomColor());
             hospital.setType("Hospital");
             nodeList.add(hospital);
         }

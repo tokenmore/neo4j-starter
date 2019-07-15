@@ -2,6 +2,7 @@ package com.qt.neo4j.service;
 
 import com.qt.neo4j.dao.BussinessBelongRepsitory;
 import com.qt.neo4j.entitiy.relation.BussinessBelong;
+import com.qt.neo4j.utils.Neo4jUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,8 @@ import java.util.Map;
 public class BussinessBelongService {
     @Autowired
     private BussinessBelongRepsitory bussinessBelongRepsitory;
+    @Autowired
+    private Neo4jUtils neo4jUtils;
     
     public Map<String,Object> findAllBussinessByEmpId(String empId){
         System.out.println(empId);

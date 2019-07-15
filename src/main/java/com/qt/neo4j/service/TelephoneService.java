@@ -38,7 +38,7 @@ public class TelephoneService {
             telephone.setId(record.get("telphoneId").asLong());
             telephone.setTelId(record.get("telId").asString());
             telephone.setLabelName(record.get("telId").asString());
-            telephone.setValue(RandomUtil.getRandomColor());
+            telephone.setColor(RandomUtil.getRandomColor());
             telephone.setType("Telephone");
             nodeList.add(telephone);
         }
@@ -60,7 +60,7 @@ public class TelephoneService {
             telephone.setId(record.get("telphoneId").asLong());
             telephone.setTelId(record.get("telId").asString());
             telephone.setLabelName(record.get("telId").asString());
-            telephone.setValue(RandomUtil.getRandomColor());
+            telephone.setColor(RandomUtil.getRandomColor());
             telephone.setType("Telephone");
             nodeList.add(telephone);
         }

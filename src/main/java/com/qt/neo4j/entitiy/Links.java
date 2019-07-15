@@ -5,31 +5,27 @@ public class Links {
     private int source;
     private int target;
     private String relation;
-    private int value;
+    private int color;
 
-    public Links(int source, int target, String relation, int value) {
+    public Links(int source, int target, String relation, int color) {
         this.source = source;
         this.target = target;
         this.relation = relation;
-        this.value = value;
+        this.color = color;
     }
 
-
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
 
     public Links() {
     }
 
-    public Links(int source, int target, String relation) {
-        this.source = source;
-        this.target = target;
-        this.relation = relation;
+    @Override
+    public String toString() {
+        return "Links{" +
+                "source=" + source +
+                ", target=" + target +
+                ", relation='" + relation + '\'' +
+                ", color=" + color +
+                '}';
     }
 
     public int getSource() {
@@ -56,13 +52,11 @@ public class Links {
         this.relation = relation;
     }
 
-    @Override
-    public String toString() {
-        return "Links{" +
-                "source=" + source +
-                ", target=" + target +
-                ", relation='" + relation + '\'' +
-                ", value=" + value +
-                '}';
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 }

@@ -5,6 +5,7 @@ import com.qt.neo4j.entitiy.Links;
 import com.qt.neo4j.entitiy.Node;
 import com.qt.neo4j.utils.Neo4jUtils;
 import com.qt.neo4j.utils.RandomUtil;
+import com.qt.neo4j.utils.SetNodeProperties;
 import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.StatementResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class AccidentCaseService {
             accident.setCaseId(record.get("caseId").asString());
             accident.setQzflag(record.get("qzflag").asString());
             accident.setLabelName(record.get("caseId").asString());
-            accident.setValue(RandomUtil.getRandomColor());
+            accident.setColor(RandomUtil.getRandomColor());
             accident.setType("AccidentCase");
             nodeList.add(accident);
         }
@@ -64,8 +65,27 @@ public class AccidentCaseService {
             accident.setCaseId(record.get("caseId").asString());
             accident.setQzflag(record.get("qzflag").asString());
             accident.setLabelName(record.get("caseId").asString());
-            accident.setValue(RandomUtil.getRandomColor());
+            accident.setColor(RandomUtil.getRandomColor());
             accident.setType("AccidentCase");
+            nodeList.add(accident);
+        }
+        map.put("nodes",nodeList);
+        map.put("links",linkList);
+        return  map;
+    }
+
+    public HashMap<String,Object> getAllAccidentCaseLabels() {
+        String sql ="match (n:AccidentCase)  return  id(n) as accidentId,n.orgno as " +
+                "orgno,n.pfmoney as pfmoney,n.caseId as caseId,n.qzflag as qzflag limit 20";
+        HashMap<String, Object> map = new HashMap<>();
+        StatementResult result = neo4jUtils.runSql(sql);
+        List<Node> nodeList = new ArrayList<>();
+        List<Links>  linkList = new ArrayList<>();
+        while(result.hasNext()){
+            Record record = result.next();
+            Node accident = new Node();
+            SetNodeProperties node = new SetNodeProperties();
+            accident = node.setAccident(record);
             nodeList.add(accident);
         }
         map.put("nodes",nodeList);
@@ -77,4 +97,5 @@ public class AccidentCaseService {
         int i = accidentCaseRepository.countAccidentCase();
         return i;
     }
+
 }

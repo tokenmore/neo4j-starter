@@ -1,16 +1,34 @@
 package com.qt.neo4j.entitiy;
 
 public class Link {
-    private int source;
-    private int target;
+    private Long sourceId;
+    private Long targetId;
     private String relation;
+    private int color;
     public Link() {
     }
 
-    public Link(int source, int target, String relation) {
-        this.source = source;
-        this.target = target;
+    public Link(Long sourceId, Long targetId, String relation, int color) {
+        this.sourceId = sourceId;
+        this.targetId = targetId;
         this.relation = relation;
+        this.color = color;
+    }
+
+    public Long getSourceId() {
+        return sourceId;
+    }
+
+    public void setSourceId(Long sourceId) {
+        this.sourceId = sourceId;
+    }
+
+    public Long getTargetId() {
+        return targetId;
+    }
+
+    public void setTargetId(Long targetId) {
+        this.targetId = targetId;
     }
 
     public String getRelation() {
@@ -21,19 +39,11 @@ public class Link {
         this.relation = relation;
     }
 
-    public int getSource() {
-        return source;
+    public int getColor() {
+        return color;
     }
 
-    public void setSource(int source) {
-        this.source = source;
-    }
-
-    public int getTarget() {
-        return target;
-    }
-
-    public void setTarget(int target) {
-        this.target = target;
+    public void setColor(int color) {
+        this.color = color;
     }
 }

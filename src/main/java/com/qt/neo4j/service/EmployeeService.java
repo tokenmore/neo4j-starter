@@ -38,7 +38,7 @@ public class EmployeeService {
             employee.setId(record.get("employeeId").asLong());
             employee.setEmpid(record.get("empId").asString());
             employee.setLabelName(record.get("empId").asString());
-            employee.setValue(RandomUtil.getRandomColor());
+            employee.setColor(RandomUtil.getRandomColor());
             employee.setType("Employee");
             nodeList.add(employee);
         }
@@ -60,7 +60,7 @@ public class EmployeeService {
             employee.setId(record.get("employeeId").asLong());
             employee.setEmpid(record.get("empId").asString());
             employee.setLabelName(record.get("empId").asString());
-            employee.setValue(RandomUtil.getRandomColor());
+            employee.setColor(RandomUtil.getRandomColor());
             employee.setType("Employee");
             nodeList.add(employee);
         }

@@ -17,8 +17,8 @@ public interface BaoAnRelationRepsitory extends Neo4jRepository<BaoAnRelation,Lo
     @Query("match p=(n:Customer)-[r:是报案人]->(n1:AccidentCase) return count(p)")
     public int countAllBaoAnRelations();
     //查询所有客户和案件的报案关系
-    @Query("match p=(n1:Customer)-[r:是报案人]->(n2:AccidentCase) return p  ")
-    public List<BaoAnRelation> findAllBaoAnRelation();
+//    @Query("match p=(n1:Customer)-[r:是报案人]->(n2:AccidentCase) return p  ")
+//    public List<BaoAnRelation> findAllBaoAnRelation();
     //根据客户customerId查询所有客户和案件的报案关系
     @Query("match p=(n1:Customer)-[r:是报案人]->(n2:AccidentCase)where n1.customerId={customerId} return p ")
     public List<BaoAnRelation> findBaoAnRelationByCustomerId(@Param("customerId")String customerId);
