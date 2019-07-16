@@ -4,7 +4,7 @@ import com.qt.neo4j.dao.TelephoneRepsitory;
 import com.qt.neo4j.entitiy.Links;
 import com.qt.neo4j.entitiy.Node;
 import com.qt.neo4j.utils.Neo4jUtils;
-import com.qt.neo4j.utils.RandomUtil;
+import com.qt.neo4j.utils.SetNodeProperties;
 import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.StatementResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +33,8 @@ public class TelephoneService {
         List<Links>  linkList = new ArrayList<>();
         while(result.hasNext()){
             Record record = result.next();
-            Node telephone = new Node();
-
-            telephone.setId(record.get("telphoneId").asLong());
-            telephone.setTelId(record.get("telId").asString());
-            telephone.setLabelName(record.get("telId").asString());
-            telephone.setColor(RandomUtil.getRandomColor());
-            telephone.setType("Telephone");
-            nodeList.add(telephone);
+            SetNodeProperties nodeProperties = new SetNodeProperties();
+            nodeList.add(nodeProperties.setTelephone(record));
         }
         map.put("nodes",nodeList);
         map.put("links",linkList);
@@ -55,14 +49,8 @@ public class TelephoneService {
         List<Links>  linkList = new ArrayList<>();
         while(result.hasNext()){
             Record record = result.next();
-            Node telephone = new Node();
-
-            telephone.setId(record.get("telphoneId").asLong());
-            telephone.setTelId(record.get("telId").asString());
-            telephone.setLabelName(record.get("telId").asString());
-            telephone.setColor(RandomUtil.getRandomColor());
-            telephone.setType("Telephone");
-            nodeList.add(telephone);
+            SetNodeProperties nodeProperties = new SetNodeProperties();
+            nodeList.add(nodeProperties.setTelephone(record));
         }
         map.put("nodes",nodeList);
         map.put("links",linkList);

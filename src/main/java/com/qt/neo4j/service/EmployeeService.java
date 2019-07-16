@@ -4,7 +4,8 @@ import com.qt.neo4j.dao.EmployeeRepsitory;
 import com.qt.neo4j.entitiy.Links;
 import com.qt.neo4j.entitiy.Node;
 import com.qt.neo4j.utils.Neo4jUtils;
-import com.qt.neo4j.utils.RandomUtil;
+import com.qt.neo4j.utils.SetLinksProperty;
+import com.qt.neo4j.utils.SetNodeProperties;
 import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.StatementResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +34,9 @@ public class EmployeeService {
         List<Links>  linkList = new ArrayList<>();
         while(result.hasNext()){
             Record record = result.next();
-            Node employee = new Node();
-
-            employee.setId(record.get("employeeId").asLong());
-            employee.setEmpid(record.get("empId").asString());
-            employee.setLabelName(record.get("empId").asString());
-            employee.setColor(RandomUtil.getRandomColor());
-            employee.setType("Employee");
-            nodeList.add(employee);
+            SetNodeProperties nodeProperties = new SetNodeProperties();
+            SetLinksProperty linksProperty = new SetLinksProperty();
+            nodeList.add(nodeProperties.setEmployee(record));
         }
         map.put("nodes",nodeList);
         map.put("links",linkList);
@@ -55,14 +51,9 @@ public class EmployeeService {
         List<Links>  linkList = new ArrayList<>();
         while(result.hasNext()){
             Record record = result.next();
-            Node employee = new Node();
-
-            employee.setId(record.get("employeeId").asLong());
-            employee.setEmpid(record.get("empId").asString());
-            employee.setLabelName(record.get("empId").asString());
-            employee.setColor(RandomUtil.getRandomColor());
-            employee.setType("Employee");
-            nodeList.add(employee);
+            SetNodeProperties nodeProperties = new SetNodeProperties();
+            SetLinksProperty linksProperty = new SetLinksProperty();
+            nodeList.add(nodeProperties.setEmployee(record));
         }
         map.put("nodes",nodeList);
         map.put("links",linkList);

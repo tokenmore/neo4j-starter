@@ -4,7 +4,8 @@ import com.qt.neo4j.dao.CustomerRepsitory;
 import com.qt.neo4j.entitiy.Links;
 import com.qt.neo4j.entitiy.Node;
 import com.qt.neo4j.utils.Neo4jUtils;
-import com.qt.neo4j.utils.RandomUtil;
+import com.qt.neo4j.utils.SetLinksProperty;
+import com.qt.neo4j.utils.SetNodeProperties;
 import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.StatementResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,52 +26,34 @@ public class CustomerService {
         return  customerRepsitory.countAll();
     }
 
-    public HashMap<String,Object> getAllAccidentCase(){
-        String sql ="match (n:AccidentCase) return id(n) as accidentId,n.orgno as orgno,n.pfmoney as " +
-                "pfmoney,n.caseId as caseId,n.qzflag as qzflag limit 10";
+    public HashMap<String,Object> getAllCustomer(){
+        String sql ="match (cu:Customer)return id(cu) as customerId,cu.customerId as custId,cu.customerName as custName limit 10";
         HashMap<String, Object> map = new HashMap<>();
         StatementResult result = neo4jUtils.runSql(sql);
         List<Node> nodeList = new ArrayList<>();
         List<Links>  linkList = new ArrayList<>();
         while(result.hasNext()){
             Record record = result.next();
-            Node accident = new Node();
-
-            accident.setId(record.get("accidentId").asLong());
-            accident.setOrgno(record.get("orgno").asString());
-            accident.setPfmoney(record.get("pfmoney").asString());
-            accident.setCaseId(record.get("caseId").asString());
-            accident.setQzflag(record.get("qzflag").asString());
-            accident.setLabelName(record.get("caseId").asString());
-            accident.setColor(RandomUtil.getRandomColor());
-            accident.setType("AccidentCase");
-            nodeList.add(accident);
+            SetNodeProperties nodeProperties = new SetNodeProperties();
+            SetLinksProperty linksProperty = new SetLinksProperty();
+            nodeList.add(nodeProperties.setCustomer(record));
         }
         map.put("nodes",nodeList);
         map.put("links",linkList);
         return  map;
     }
 
-    public HashMap<String,Object> getAccidentCaseByCaseId(String caseId){
-        String sql ="match (n:AccidentCase) where n.caseId ='"+caseId+"' return  id(n) as accidentId,n.orgno as " +
-                "orgno,n.pfmoney as pfmoney,n.caseId as caseId,n.qzflag as qzflag";
+    public HashMap<String,Object> getCustomerByCustomerId(String customerId){
+        String sql ="match (cu:Customer)where cu.customerId = '"+customerId+"'return id(cu) as customerId,cu.customerId as custId,cu.customerName as custName limit 10";
         HashMap<String, Object> map = new HashMap<>();
         StatementResult result = neo4jUtils.runSql(sql);
         List<Node> nodeList = new ArrayList<>();
         List<Links>  linkList = new ArrayList<>();
         while(result.hasNext()){
             Record record = result.next();
-            Node accident = new Node();
-
-            accident.setId(record.get("accidentId").asLong());
-            accident.setOrgno(record.get("orgno").asString());
-            accident.setPfmoney(record.get("pfmoney").asString());
-            accident.setCaseId(record.get("caseId").asString());
-            accident.setQzflag(record.get("qzflag").asString());
-            accident.setLabelName(record.get("caseId").asString());
-            accident.setColor(RandomUtil.getRandomColor());
-            accident.setType("AccidentCase");
-            nodeList.add(accident);
+            SetNodeProperties nodeProperties = new SetNodeProperties();
+            SetLinksProperty linksProperty = new SetLinksProperty();
+            nodeList.add(nodeProperties.setCustomer(record));
         }
         map.put("nodes",nodeList);
         map.put("links",linkList);

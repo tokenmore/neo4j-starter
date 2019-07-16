@@ -1,27 +1,36 @@
 package com.qt.neo4j.controller;
 
-import com.qt.neo4j.dao.UseTelRepsitory;
-import com.qt.neo4j.entitiy.relation.UserTelRelation;
+import com.qt.neo4j.service.UseTelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.HashMap;
 
 @RestController
 public class UseTelRelationController {
     @Autowired
-    private UseTelRepsitory useTelRepsitory;
+    private UseTelService useTelService;
 
     @RequestMapping("/countAllTelRelations")
     public int countAllRelations(){
-        return useTelRepsitory.countAllTelRelations();
+        return useTelService.countUseTelRelations();
+    }
+
+    @RequestMapping("/getAllUseTelRelations")
+    public HashMap<String, Object> getAllUseTelRelations(){
+        return useTelService.getAllUseTelRelations();
     }
 
     @RequestMapping("/findUserTelRelationByCustomerId")
-    public List<UserTelRelation> findUserTelRelationByCustomerId(@RequestParam("customerId") String customerId){
-        return useTelRepsitory.findUserTelRelationByCustomerId(customerId);
+    public HashMap<String, Object> findUserTelRelationByCustomerId(@RequestParam("customerId") String customerId){
+        return useTelService.getUseTelRelationByCustomerId(customerId);
+    }
+
+    @RequestMapping("/findUserTelRelationByTelId")
+    public HashMap<String, Object> findUserTelRelationByTelId(String telId){
+        return useTelService.getUseTelRelationByTelId(telId);
     }
 
 

@@ -72,7 +72,7 @@ public class SetNodeProperties {
      */
     public Node setTelephone(Record record){
         Node telephone = new Node();
-        telephone.setId(record.get("telphoneId").asLong());
+        telephone.setId(record.get("telephoneId").asLong());
         telephone.setTelId(record.get("telId").asString());
         telephone.setLabelName(record.get("telId").asString());
         telephone.setColor(RandomUtil.getRandomColor());

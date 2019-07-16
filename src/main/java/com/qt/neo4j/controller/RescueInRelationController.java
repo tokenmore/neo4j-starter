@@ -1,27 +1,35 @@
 package com.qt.neo4j.controller;
 
-import com.qt.neo4j.dao.RescueRespository;
-import com.qt.neo4j.entitiy.relation.RescueInRelation;
+import com.qt.neo4j.service.RescureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.HashMap;
 
 @RestController
 public class RescueInRelationController {
 
     @Autowired
-    private RescueRespository rescueRespository;
+    private RescureService rescureService;
+
+    @RequestMapping("/countRescueRelations")
+    public int countRescueRelations(){
+        return rescureService.countAllRescue();
+    }
 
     @RequestMapping("/findAllRescueRelatin")
-    public List<RescueInRelation> findAllRescueRelatin(){
-        return rescueRespository.findAllRescue();
+    public HashMap<String, Object> findAllRescueRelatin(){
+        return rescureService.getAllRescueRelations();
     }
 
     @RequestMapping("/findRescueRelationByCaseId")
-    public List<RescueInRelation> findRescueRelationByCaseId(@RequestParam("caseId")String caseId){
-        return rescueRespository.findRescueInRelationByCaseId(caseId);
+    public HashMap<String, Object> findRescueRelationByCaseId(@RequestParam("caseId")String caseId){
+        return rescureService.getRescueRelationByCaseId(caseId);
+    }
+    @RequestMapping("/findRescueRelationByHosId")
+    public HashMap<String, Object> findRescueRelationByhosId(@RequestParam("hosId")String hosId){
+        return rescureService.getRescueRelationByCaseId(hosId);
     }
 }

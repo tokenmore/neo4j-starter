@@ -27,9 +27,7 @@ public class BeiBaoPersonService {
     }
     //获取所有 是被保人 的关系
     public HashMap<String,Object> getAllBeiBaoPerson(){
-        String sql = "match (cu:Customer)-[r:是被保人]->(ac:AccidentCase) return id(cu) as customerId," +
-                "id(ac) as accidentId,type(r) as relation,return ac.orgno as orgno,ac.pfmoney as pfmoney,ac.caseId" +
-                "as caseId,ac.qzflag as qzflag ,cu.customerId as custId,cu.customerName as custName limit 10";
+        String sql = "match (cu:Customer)-[r:是被保人]->(ac:AccidentCase) return id(cu) as customerId ,id(ac) as accidentId,type(r) as relation ,ac.orgno as orgno,ac.pfmoney as pfmoney,ac.caseId as caseId,ac.qzflag as qzflag ,cu.customerId as custId,cu.customerName as custName limit 10";
         HashMap<String, Object> map = new HashMap<>();
         StatementResult result = neo4jUtils.runSql(sql);
         List<Node> nodeList = new ArrayList<>();

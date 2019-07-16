@@ -1,25 +1,30 @@
 package com.qt.neo4j.controller;
 
-import com.qt.neo4j.dao.HospitalRepsitory;
-import com.qt.neo4j.entitiy.Hospital;
+import com.qt.neo4j.service.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+
 @RestController
 public class HospitalController {
     @Autowired
-    private HospitalRepsitory hospitalRepsitory;
+    private HospitalService hospitalService;
 
     @RequestMapping("/countHospitalNums")
     public int countHospitalNums(){
-        return hospitalRepsitory.countHospitalNums();
+        return hospitalService.countHospital();
     }
 
     @RequestMapping("/getHospitalById")
-    public Hospital getHospitalById(@RequestParam("hospitalId")String hospitalId){
-        Hospital hospital = hospitalRepsitory.findByHospitalId(hospitalId);
-        return hospital;
+    public HashMap<String,Object> getHospitalById(@RequestParam("hospitalId")String hospitalId){
+      return hospitalService.getHospitalByHosId(hospitalId);
+    }
+
+    @RequestMapping("/getAllHospital")
+    public HashMap<String,Object> getAllHospital(){
+        return hospitalService.getAllHospital();
     }
 }
