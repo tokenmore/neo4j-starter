@@ -1,0 +1,36 @@
+"TAYU0090"
+"ZHZX0494"
+"BEJQ7744"
+"GYA0A018"
+"TAYSE059"
+
+
+match (n1:AccidentCase)-[r1:治疗于]->(n2:Hospital) with n1,n2,r1 match (n1)-[r2:业务归属于]->(n3:Employee) with n1,n2,n3,r1,r2 match (n4:Customer)-[r3:是投保人]->(n1) with n1,n2,n3,n4,r1,r2,r3 match (n5:Telephone)-[r4:是报案电话]->(n1) return n1,n2,n3,n4,n5,r1,r2,r3,r4 limit 10
+
+
+
+match (n1:AccidentCase)-[r1:治疗于]->(n2:Hospital) with n1,n2,r1 match (n1)-[r2:业务归属于]->(n3:Employee) with n1,n2,n3,r1,r2 match (n4:Customer)-[r3:是投保人]->(n1) with n1,n2,n3,n4,r1,r2,r3 match (n5:Telephone)-[r4:是报案电话]->(n1) with n1,n2,n3,n4,n5,r1,r2,r3,r4 match (n4)-[r5:使用]->(n5) return n1,n2,n3,n4,n5,r1,r2,r3,r4,r5 limit 20
+
+
+match p=(n1:AccidentCase)-[r1:治疗于]->(n2:Hospital) with p match p1=(n1)-[r2:业务归属于]->(n3:Employee) with p1 match p2=(n4:Customer)-[r3:是投保人]->(n1) with p2 match p3=(n5:Telephone)-[r4:是报案电话]->(n1) with p3 match p4=(n4)-[r5:使用]->(n5) return p4 limit 20
+
+match p1=(n1:Employee)<-[r1:业务归属于]-(n2:AccidentCase),p2=(n3:AccidentCase)-[r2:治疗于]->(n4:Hospital),p3=(n5:Customer)-[r3:是投保人]->(n6:AccidentCase),p4=(n7:Customer)-[r4:是被保人]->(n8:AccidentCase),p5=(n9:Customer)-[r5:是领款人]->(n10:AccidentCase),p6=(n11:Customer)-[r6:是报案人]->(n12:AccidentCase),p7=(n13:Customer)-[r7:使用]->(n14:Telephone),p8=(n15:Telephone)-[r8:是报案电话]->(n16:AccidentCase),p9=(n17:Telephone)-[r:是领款电话]->(n18:AccidentCase) return p1,p2,p3,p4,p5,p6,p7,p8,p9 limit 5
+
+match p1=(n1:Employee)<-[r1:业务归属于]-(n2:AccidentCase),p2=(n3:AccidentCase)-[r2:治疗于]->(n4:Hospital),p3=(n5:Customer)-[r3:是投保人]->(n6:AccidentCase),p4=(n7:Customer)-[r4:是被保人]->(n8:AccidentCase),p5=(n9:Customer)-[r5:是领款人]->(n10:AccidentCase),p6=(n11:Customer)-[r6:是报案人]->(n12:AccidentCase),p7=(n13:Customer)-[r7:使用]->(n14:Telephone),p8=(n15:Telephone)-[r8:是报案电话]->(n16:AccidentCase),p9=(n17:Telephone)-[r:是领款电话]->(n18:AccidentCase) return n1,n2,n3,n4,n5,n6,n7,n8,n9,n10,n11,n12,n13,n14,n15,n16,n17,n18,r1,r2,r3,r4,r5,r6,r7,r8,r limit 20
+
+//显示完整关系的节点属性和边关系类型
+match p1=(n1:AccidentCase)-[r1:治疗于]->(n2:Hospital) with p1,n1,n2,r1 match p2=(n1)-[r2:业务归属于]->(n3:Employee) with p1,p2,n1,n2,n3,r1,r2 match p3=(n4:Customer)-[r3:是投保人]->(n1) with p1,p2,p3,n1,n2,n3,n4,r1,r2,r3 match p4=(n5:Telephone)-[r4:是报案电话]->(n1) with n1,n2,n3,n4,r1,r2,r3,n5,r4,p1,p2,p3,p4 match p5=(n5)-[r5:是领款电话]->(n1) with p1,p2,p3,p4,p5,n1,n2,n3,n4,r1,r2,r3,n5,r4,r5 match p6=(n4)-[r6:使用]->(n5) with p1,p2,p3,p4,p5,p6,n1,n2,n3,n4,r1,r2,r3,n5,r4,r5,r6 match p7=(n4)-[r7:是被保人]->(n1) with p1,p2,p3,p4,p5,p6,p7 ,n1,n2,n3,n4,r1,r2,r3,n5,r4,r5,r6,r7 match p8=(n4)-[r8:是报案人]->(n1) with p1,p2,p3,p4,p5,p6,p7,p8, n1,n2,n3,n4,r1,r2,r3,n5,r4,r5,r6,r7,r8 match p9=(n4)-[r9:是领款人]->(n1)   return id(n1) as accidentId,n1.orgno as orgno,n1.pfmoney as pfmoney,n1.caseId as caseId,n1.qzflag as qzflag,id(n2) as hospitalId,n2.hospitaLevel as level,n2.hospitalId as hosId,n2.hospitalName as hosName,id(n3) as employeeId,n3.empId as empId,id(n4) as customerId,n4.customerId as custId,n4.customerName as customerName,id(n5) as telphoneId,n5.telId as telId,type(r1),type(r2),type(r3),type(r4),type(r5),type(r6),type(r7),type(r8),type(r9) limit 10
+
+
+获取开始节点ID、结束节点Id和关系类型
+match p1=(n1:AccidentCase)-[r1:治疗于]->(n2:Hospital) with p1,n1,n2,r1 match p2=(n1)-[r2:业务归属于]->(n3:Employee) with p1,p2,n1,n2,n3,r1,r2 match p3=(n4:Customer)-[r3:是投保人]->(n1) with p1,p2,p3,n1,n2,n3,n4,r1,r2,r3 match p4=(n5:Telephone)-[r4:是报案电话]->(n1) with n1,n2,n3,n4,r1,r2,r3,n5,r4,p1,p2,p3,p4 match p5=(n5)-[r5:是领款电话]->(n1) with p1,p2,p3,p4,p5,n1,n2,n3,n4,r1,r2,r3,n5,r4,r5 match p6=(n4)-[r6:使用]->(n5) with p1,p2,p3,p4,p5,p6,n1,n2,n3,n4,r1,r2,r3,n5,r4,r5,r6 match p7=(n4)-[r7:是被保人]->(n1) with p1,p2,p3,p4,p5,p6,p7,n1,n2,n3,n4,r1,r2,r3,n5,r4,r5,r6,r7 match p8=(n4)-[r8:是报案人]->(n1) with p1,p2,p3,p4,p5,p6,p7,p8,n1,n2,n3,n4,r1,r2,r3,n5,r4,r5,r6,r7,r8 match p9=(n4)-[r9:是领款人]->(n1)   return id(n1) as i1,type(r1) as r1,n1.orgno as orgno,n1.pfmoney as pfmoney,n1.caseId as caseId,n1.qzflag as qzflag, id(n2)as i2,n2.hospitaLevel as level,n2.hospitalId as hosId,n2.hospitalName as hosName,n3.empId as empId, id(n1) as i3,type(r2) as r2,id(n3) as i4,id(n4) as i5,type(r3) as r3,id(n1) as i6,id(n5) as i7,type(r4) as r4,id(n1) as i8,id(n5)as i9,type(r5) as r5,id(n1) as i10,n4.customerId as custId,n4.customerName as customerName,id(n4) as i11,type(r6) as r6,id(n5) as i12,id(n4) as i13,type(r7) as r7,id(n1) as i14,id(n4) as i15,type(r8) as r8,id(n1) as i16,id(n4) as i17,type(r9) as r9,id(n1) as i18,n5.telId as telId limit 10
+
+
+match p1=(n1:AccidentCase)-[r1:治疗于]->(n2:Hospital) with p1,n1,n2,r1 match p2=(n1)-[r2:业务归属于]->(n3:Employee) with p1,p2,n1,n2,n3,r1,r2 match p3=(n4:Customer)-[r3:是投保人]->(n1) with p1,p2,p3,n1,n2,n3,n4,r1,r2,r3 match p4=(n5:Telephone)-[r4:是报案电话]->(n1) with n1,n2,n3,n4,r1,r2,r3,n5,r4,p1,p2,p3,p4 match p5=(n5)-[r5:是领款电话]->(n1) with p1,p2,p3,p4,p5,n1,n2,n3,n4,r1,r2,r3,n5,r4,r5 match p6=(n4)-[r6:使用]->(n5) with p1,p2,p3,p4,p5,p6,n1,n2,n3,n4,r1,r2,r3,n5,r4,r5,r6 match p7=(n4)-[r7:是被保人]->(n1) with p1,p2,p3,p4,p5,p6,p7 ,n1,n2,n3,n4,r1,r2,r3,n5,r4,r5,r6,r7 match p8=(n4)-[r8:是报案人]->(n1) with p1,p2,p3,p4,p5,p6,p7,p8, n1,n2,n3,n4,r1,r2,r3,n5,r4,r5,r6,r7,r8 match p9=(n4)-[r9:是领款人]->(n1)   return id(n1) as accidentId,n1.orgno as orgno,n1.pfmoney as pfmoney,n1.caseId as caseId,n1.qzflag as qzflag,id(n2) as hospitalId,n2.hospitaLevel as level,n2.hospitalId as hosId,n2.hospitalName as hosName,id(n3) as employeeId,n3.empId as empId,id(n4) as customerId,n4.customerId as custId,n4.customerName as customerName,id(n5) as telphoneId,n5.telId as telId,type(r1),type(r2),type(r3),type(r4),type(r5),type(r6),type(r7),type(r8),type(r9) limit 10
+
+
+
+match p1=(n1:AccidentCase)-[r1:治疗于]->(n2:Hospital)where n1.caseId='"+caseId+"'' with p1,n1,n2,r1 match p2=(n1)-[r2:业务归属于]->(n3:Employee) with p1,p2,n1,n2,n3,r1,r2 match p3=(n4:Customer)-[r3:是投保人]->(n1) with p1,p2,p3,n1,n2,n3,n4,r1,r2,r3 match p4=(n5:Telephone)-[r4:是报案电话]->(n1) with n1,n2,n3,n4,r1,r2,r3,n5,r4,p1,p2,p3,p4 match p5=(n5)-[r5:是领款电话]->(n1) with p1,p2,p3,p4,p5,n1,n2,n3,n4,r1,r2,r3,n5,r4,r5 match p6=(n4)-[r6:使用]->(n5) with p1,p2,p3,p4,p5,p6,n1,n2,n3,n4,r1,r2,r3,n5,r4,r5,r6 match p7=(n4)-[r7:是被保人]->(n1) with p1,p2,p3,p4,p5,p6,p7 ,n1,n2,n3,n4,r1,r2,r3,n5,r4,r5,r6,r7 match p8=(n4)-[r8:是报案人]->(n1) with p1,p2,p3,p4,p5,p6,p7,p8, n1,n2,n3,n4,r1,r2,r3,n5,r4,r5,r6,r7,r8 match p9=(n4)-[r9:是领款人]->(n1)   return id(n1) as accidentId,n1.orgno as orgno,n1.pfmoney as pfmoney,n1.caseId as caseId,n1.qzflag as qzflag,id(n2) as hospitalId,n2.hospitaLevel as level,n2.hospitalId as hosId,n2.hospitalName as hosName,id(n3) as employeeId,n3.empId as empId,id(n4) as customerId,n4.customerId as custId,n4.customerName as customerName,id(n5) as telphoneId,n5.telId as telId,type(r1),type(r2),type(r3),type(r4),type(r5),type(r6),type(r7),type(r8),type(r9);
+
+match (cu:Customer)-[r1]->(ac:AccidentCase)-[bs:]
+
