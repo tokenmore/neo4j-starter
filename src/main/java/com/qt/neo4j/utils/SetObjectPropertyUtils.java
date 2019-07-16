@@ -6,7 +6,7 @@ public class SetObjectPropertyUtils {
 
     public static Node setCustomerProperty(Customer customer){
         Node node = new Node();
-        node.setLabelName(customer.getCustomerName());
+        node.setLabel(customer.getCustomerName());
         node.setCustomerName(customer.getCustomerName());
         node.setCustomerId(customer.getCustomerId());
         node.setColor(RandomUtil.getRandomColor());
@@ -16,7 +16,7 @@ public class SetObjectPropertyUtils {
 
     public static Node setTelephoneProperty(Telephone telephone){
         Node node = new Node();
-        node.setLabelName(telephone.getTelnumber());
+        node.setLabel(telephone.getTelnumber());
         node.setTelId(telephone.getTelnumber());
         node.setColor(RandomUtil.getRandomColor());
         node.setType(telephone.getClass().getSimpleName());
@@ -25,7 +25,7 @@ public class SetObjectPropertyUtils {
 
     public static Node setAccidentProperty(AccidentCase accidentCase){
         Node node = new Node();
-        node.setLabelName(accidentCase.getCaseId());
+        node.setLabel(accidentCase.getCaseId());
         node.setAccTime(accidentCase.getAccTime());
         node.setCaseId(accidentCase.getCaseId());
         node.setPfmoney(accidentCase.getPfMoney());
@@ -40,7 +40,7 @@ public class SetObjectPropertyUtils {
     //employee应该还有一个employeeId的属性，暂时没有注入，等以后再写
     public static Node setEmployeeProperty(Employee employee){
         Node node = new Node();
-        node.setLabelName(employee.getEmpId());
+        node.setLabel(employee.getEmpId());
         node.setEmpid(employee.getEmpId());
         node.setColor(RandomUtil.getRandomColor());
         node.setType(employee.getClass().getSimpleName());
@@ -49,7 +49,7 @@ public class SetObjectPropertyUtils {
 
     public static Node setHospitalProperty(Hospital hospital){
         Node node = new Node();
-        node.setLabelName(hospital.getHospitalName());
+        node.setLabel(hospital.getHospitalName());
         node.setHospitalName(hospital.getHospitalName());
         node.setHospitaLevel(hospital.getHospitaLevel());
         node.setHospitalId(hospital.getHospitaLevel());

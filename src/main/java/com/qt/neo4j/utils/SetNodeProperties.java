@@ -14,9 +14,10 @@ public class SetNodeProperties {
         accident.setPfmoney(record.get("pfmoney").asString());
         accident.setCaseId(record.get("caseId").asString());
         accident.setQzflag(record.get("qzflag").asString());
-        accident.setLabelName(record.get("caseId").asString());
+        accident.setLabel(record.get("caseId").asString());
         accident.setColor(RandomUtil.getRandomColor());
         accident.setType("AccidentCase");
+        accident.setSize(35);
         return accident;
     }
 
@@ -29,9 +30,10 @@ public class SetNodeProperties {
         hospital.setHospitaLevel(record.get("level").asString());
         hospital.setHospitalId(record.get("hosId").asString());
         hospital.setHospitalName(record.get("hosName").asString());
-        hospital.setLabelName(record.get("hosName").asString());
+        hospital.setLabel(record.get("hosName").asString());
         hospital.setColor(RandomUtil.getRandomColor());
         hospital.setType("Hospital");
+        hospital.setSize(40);
         return hospital;
     }
 
@@ -42,9 +44,10 @@ public class SetNodeProperties {
         Node employee = new Node();
         employee.setId(record.get("employeeId").asLong());
         employee.setEmpid(record.get("empId").asString());
-        employee.setLabelName(record.get("empId").asString());
+        employee.setLabel(record.get("empId").asString());
         employee.setColor(RandomUtil.getRandomColor());
         employee.setType("Employee");
+        employee.setSize(25);
         return employee;
     }
 
@@ -58,10 +61,10 @@ public class SetNodeProperties {
         customer.setId(record.get("customerId").asLong());
         customer.setCustomerId(record.get("custId").asString());
         customer.setCustomerName(record.get("customerName").asString());
-        customer.setLabelName(record.get("customerName").asString());
+        customer.setLabel(record.get("customerName").asString());
         customer.setColor(RandomUtil.getRandomColor());
         customer.setType("Customer");
-        System.out.println(customer);
+        customer.setSize(25);
         return  customer;
     }
 
@@ -74,9 +77,10 @@ public class SetNodeProperties {
         Node telephone = new Node();
         telephone.setId(record.get("telephoneId").asLong());
         telephone.setTelId(record.get("telId").asString());
-        telephone.setLabelName(record.get("telId").asString());
+        telephone.setLabel(record.get("telId").asString());
         telephone.setColor(RandomUtil.getRandomColor());
         telephone.setType("Telephone");
+        telephone.setSize(30);
         return  telephone;
     }
 }

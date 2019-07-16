@@ -7,8 +7,8 @@ public class SetLinksProperty {
 
     public Link setLinksProperty(Record record, String sourceId,String targetId,String relation){
         Link link = new Link();
-        link.setSourceId(record.get(sourceId).asLong());
-        link.setTargetId(record.get(targetId).asLong());
+        link.setSource(record.get(sourceId).asLong());
+        link.setTarget(record.get(targetId).asLong());
         link.setRelation(relation);
         link.setColor(RandomUtil.getRandomColor());
         return  link;

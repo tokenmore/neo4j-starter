@@ -2,9 +2,9 @@ package com.qt.neo4j.entitiy;
 
 public class Node {
     private Long id;
-    private String labelName;
+    private String label;//显示在节点的文字描述
     private String type;
-
+    private int size;//节点circle的size
     private String customerId;
     private String customerName;
     private String telId;//电话号码
@@ -22,9 +22,11 @@ public class Node {
     public Node() {
     }
 
-    public Node(String labelName, String type, String customerId, String customerName, String telId, String hospitalId, String hospitaLevel, String hospitalName, String empid, String accTime, String caseId, String orgno, String pfmoney, String qzflag, int color) {
-        this.labelName = labelName;
+    public Node(Long id, String label, String type, int size, String customerId, String customerName, String telId, String hospitalId, String hospitaLevel, String hospitalName, String empid, String accTime, String caseId, String orgno, String pfmoney, String qzflag, int color) {
+        this.id = id;
+        this.label = label;
         this.type = type;
+        this.size = size;
         this.customerId = customerId;
         this.customerName = customerName;
         this.telId = telId;
@@ -40,6 +42,29 @@ public class Node {
         this.color = color;
     }
 
+    @Override
+    public String toString() {
+        return "Node{" +
+                "id=" + id +
+                ", label='" + label + '\'' +
+                ", type='" + type + '\'' +
+                ", size=" + size +
+                ", customerId='" + customerId + '\'' +
+                ", customerName='" + customerName + '\'' +
+                ", telId='" + telId + '\'' +
+                ", hospitalId='" + hospitalId + '\'' +
+                ", hospitaLevel='" + hospitaLevel + '\'' +
+                ", hospitalName='" + hospitalName + '\'' +
+                ", empid='" + empid + '\'' +
+                ", accTime='" + accTime + '\'' +
+                ", caseId='" + caseId + '\'' +
+                ", orgno='" + orgno + '\'' +
+                ", pfmoney='" + pfmoney + '\'' +
+                ", qzflag='" + qzflag + '\'' +
+                ", color=" + color +
+                '}';
+    }
+
     public Long getId() {
         return id;
     }
@@ -48,12 +73,12 @@ public class Node {
         this.id = id;
     }
 
-    public String getLabelName() {
-        return labelName;
+    public String getLabel() {
+        return label;
     }
 
-    public void setLabelName(String labelName) {
-        this.labelName = labelName;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public String getType() {
@@ -62,6 +87,14 @@ public class Node {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 
     public String getCustomerId() {
@@ -166,27 +199,5 @@ public class Node {
 
     public void setColor(int color) {
         this.color = color;
-    }
-
-    @Override
-    public String toString() {
-        return "Node{" +
-                "id=" + id +
-                ", labelName='" + labelName + '\'' +
-                ", type='" + type + '\'' +
-                ", customerId='" + customerId + '\'' +
-                ", customerName='" + customerName + '\'' +
-                ", telId='" + telId + '\'' +
-                ", hospitalId='" + hospitalId + '\'' +
-                ", hospitaLevel='" + hospitaLevel + '\'' +
-                ", hospitalName='" + hospitalName + '\'' +
-                ", empid='" + empid + '\'' +
-                ", accTime='" + accTime + '\'' +
-                ", caseId='" + caseId + '\'' +
-                ", orgno='" + orgno + '\'' +
-                ", pfmoney='" + pfmoney + '\'' +
-                ", qzflag='" + qzflag + '\'' +
-                ", color=" + color +
-                '}';
     }
 }

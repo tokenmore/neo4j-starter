@@ -4,7 +4,6 @@ import com.qt.neo4j.dao.AccidentCaseRepository;
 import com.qt.neo4j.entitiy.Links;
 import com.qt.neo4j.entitiy.Node;
 import com.qt.neo4j.utils.Neo4jUtils;
-import com.qt.neo4j.utils.RandomUtil;
 import com.qt.neo4j.utils.SetNodeProperties;
 import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.StatementResult;
@@ -32,15 +31,8 @@ public class AccidentCaseService {
         while(result.hasNext()){
             Record record = result.next();
             Node accident = new Node();
-
-            accident.setId(record.get("accidentId").asLong());
-            accident.setOrgno(record.get("orgno").asString());
-            accident.setPfmoney(record.get("pfmoney").asString());
-            accident.setCaseId(record.get("caseId").asString());
-            accident.setQzflag(record.get("qzflag").asString());
-            accident.setLabelName(record.get("caseId").asString());
-            accident.setColor(RandomUtil.getRandomColor());
-            accident.setType("AccidentCase");
+            SetNodeProperties nodeProperties = new SetNodeProperties();
+            accident = nodeProperties.setAccident(record);
             nodeList.add(accident);
         }
         map.put("nodes",nodeList);
@@ -58,15 +50,8 @@ public class AccidentCaseService {
         while(result.hasNext()){
             Record record = result.next();
             Node accident = new Node();
-
-            accident.setId(record.get("accidentId").asLong());
-            accident.setOrgno(record.get("orgno").asString());
-            accident.setPfmoney(record.get("pfmoney").asString());
-            accident.setCaseId(record.get("caseId").asString());
-            accident.setQzflag(record.get("qzflag").asString());
-            accident.setLabelName(record.get("caseId").asString());
-            accident.setColor(RandomUtil.getRandomColor());
-            accident.setType("AccidentCase");
+            SetNodeProperties setNodeProperties = new SetNodeProperties();
+            accident = setNodeProperties.setAccident(record);
             nodeList.add(accident);
         }
         map.put("nodes",nodeList);
