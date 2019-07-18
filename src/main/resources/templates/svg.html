@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}">
+    <script th:src="@{js/jquery.js}"></script>
+    <script th:src="@{js/bootstrap.min.js}"></script>
+    <script th:src="@{js/d3.v4.min.js}"></script>
+    <style>
+    </style>
+</head>
+<body>
+<svg width="960" height="800"></svg>
+<!--初始化加载案件节点-->
+<script>
+    $(function () {
+        var nodes;
+        var links;
+        $.ajax({
+            url: "/getAllRelations",
+            type: "get",
+            // dataType:"json",
+            success: function (data) {
+                nodes = data.nodes;
+                links = data.links;
+                var width = 1560;
+                var height = 800;
+                var svg = d3.select("svg")
+                    .attr("width", width)
+                    .attr("height", height);
+                var circle_radius = 30;
+
+// 通过布局来转换数据，然后进行绘制
+                var simulation = d3.forceSimulation(nodes)
+                    .force("link", d3.forceLink(links).distance(200))
+                    .force("charge", d3.forceManyBody().strength(-100))
+                    .force("center", d3.forceCenter(width / 2, height / 2));
+
+                var color = d3.scaleOrdinal(d3.schemeCategory20);
+                // 绘制线
+                var svg_links = svg.selectAll("path")
+                    .data(links)
+                    .enter()
+                    .append("path")
+                    .attr("id", function (d, i) {
+                        return "edgepath" + i;
+                    })
+                    .style("stroke", function (d) {
+                        return color(d.value);
+                    })
+                    .style("stroke-width", 3);
+
+                //节点对象
+                var svg_nodes = svg.selectAll("circle")
+                    .data(nodes)
+                    .enter()
+                    .append("circle")
+                    .attr("r", circle_radius)
+                    .attr("title", function (d) {
+                        return d.type;
+                    })
+                    .attr("comment", function (d) {
+                        return d.labelName
+                    })
+                    .attr("id", function (d, i) {
+                        return "cid" + i;
+                    })
+                    .call(d3.drag()
+                        .on("start", dragstarted)
+                        .on("drag", dragged)
+                        .on("end", dragended));
+                //节点描述
+                var node_text = svg.selectAll("text")
+                    .data(nodes)
+                    .enter()
+                    .append("text")
+                    .style("fill", "#000")
+                    .attr("dominant-baseline", "middle")
+                    .attr("id", function (i, d) {
+                        return "nodetext" + d;
+                    })
+                    .attr("font-size",15)
+                    .attr("text-anchor", "middle")//在圆圈中加上数据
+                    .text(function (d) {
+                        return d.labelName;
+                    });
+
+                //关系描述
+                var edges_text = svg.append("g").selectAll(".edgelabel")
+                    .data(links)
+                    .enter()
+                    .append("text")
+                    .style("pointer-events", "none").style("fill", function (d) {
+                        return color(d.value)
+                    }).attr("class", "edgelabel")
+                    .attr("id", function (d, i) {
+                        return 'edgetext' + i;
+                    })
+                    .attr("dx", 80)
+                    .attr("dy", 0)
+                    .attr("font-size", 10);
+//设置线条上的文字
+                edges_text.append('textPath')
+                    .attr('xlink:href', function (d, i) {
+                        return '#edgepath' + i
+                    }).attr("font-size",30)
+                    .style("pointer-events", "none")
+                    .text(function (d) {
+                        return d.relation;
+                    });
+
+                /**
+                 * 节点（开始）拖拽事件
+                 */
+                function dragstarted(d) {
+                    if (!d3.event.active)
+                        simulation.alphaTarget(0.002).restart();
+                    d.fx = d.x;
+                    d.fy = d.y;
+                }
+
+                /**
+                 * 节点拖拽事件
+                 */
+                function dragged(d) {
+                    d.fx = d3.event.x;
+                    d.fy = d3.event.y;
+                }
+
+                /**
+                 * 节点（结束）拖拽事件
+                 */
+                function dragended(d) {
+                    if (!d3.event.active)
+                        simulation.alphaTarget(0);
+                }
+
+                //箭头
+                var marker =
+                    svg.append("marker")
+                        .attr("id", "resolved")
+                        .attr("markerUnits", "userSpaceOnUse")
+                        .attr("viewBox", "0 -5 10 10")//坐标系的区域
+                        .attr("refX", 34)//箭头坐标
+                        .attr("refY", -1)
+                        .attr("markerWidth", 12)//标识的大小
+                        .attr("markerHeight", 12)
+                        .attr("orient", "auto")//绘制方向，可设定为：auto（自动确认方向）和 角度值
+                        .attr("stroke-width", 2)//箭头宽度
+                        .append("path")
+                        .attr("d", "M0,-5L10,0L0,5")//箭头的路径
+                        .attr('fill', '#000000');//箭头颜色
+
+
+                function draw() {
+                    svg_nodes
+                        .attr("cx", function (d) {
+                            return d.x;
+                        })
+                        .attr("cy", function (d) {
+                            return d.y;
+                        })
+                        .attr("fill", function (d) {
+                            return color(d.value);
+                        });
+
+                    node_text
+                        .attr("x", function (d) {
+                            return d.x;
+                        })
+                        .attr("y", function (d) {
+                            return d.y;
+                        });
+
+                    svg_links
+                        .attr("d", function (d) {
+                            return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y
+                        })
+                        .attr("marker-end", "url(#resolved)");
+//      edges_text.attr('transform',function(d){
+//      if (d.target.x<d.source.x){
+//          bbox = this.getBBox();
+//          rx = bbox.x+bbox.width/2;
+//          ry = bbox.y+bbox.height/2;
+//          return 'rotate(180 '+rx+' '+ry+')';
+//      }
+//      else {
+//          return 'rotate(0)';
+//      }
+// 		});
+                    edges_text.attr({
+                        "x": function (d) {
+                            return (d.source.x + d.target.x) / 2
+                        },
+                        "y": function (d) {
+                            return (d.source.y + d.target.y) / 2
+                        },
+                    })
+                }
+
+                simulation.on("tick", draw);
+                svg.call(d3.zoom().scaleExtent([0.05, 8]).on('zoom', function () {
+                    var transform = d3.event.transform;
+                    svg_nodes.attr('transform', transform);
+                    svg_links.attr("transform", transform);
+                    node_text.attr("transform", transform);
+                })).on('dblclick.zoom', null);
+                $("circle").hide();
+                $("path").hide();
+                $("text").hide();
+                $.each(nodes, function (index, val) {
+                    if(val.type=="AccidentCase"){
+                        $("#cid"+index).show();
+                        $("#nodetext"+index).show();
+                    }
+                });
+
+                //遍历node节点
+                //当发生点击事件时，触发函数，获取到当前点击的节点
+                var flag = 0;
+                var hosflag = 0;
+                var empflag = 0;
+                $("circle").attr("flag", flag);
+
+                $(document).on("click", "circle", function () {
+                    var text = $(this).attr("comment");//节点实际显示内容
+                    var title = $(this).attr("title");
+                    var flag = $(this).attr("flag");
+                    if (title == 'AccidentCase') {
+                        if (flag % 2 == 0) {
+                            $.each(links, function (i, d) {
+                                var source = links[i].source;
+                                var target = links[i].target;
+                                var sourcelabel = source.labelName;
+                                var targetlabel = target.labelName;
+                                if (sourcelabel == text) {
+                                    $.each(nodes, function (index, val) {
+                                        var label = val.labelName;
+                                        var type = val.type;
+                                        if (targetlabel == label) {
+                                            $("#cid" + index).show();
+                                            $("#nodetext" + index).show();
+                                        }
+                                    });
+                                    $("#edgepath" + i).show();
+                                    $("#edgetext" + i).show();
+                                    if (target.type == "Hospital") {
+                                        if ($("#edgepath" + i).is(":visible")) {
+                                            hosflag++;
+                                        }
+                                    }
+                                    if (target.type == "Employee") {
+                                        if ($("#edgepath" + i).is(":visible")) {
+                                            empflag++;
+                                        }
+                                    }
+                                }
+                                if (targetlabel == text) {
+                                    $.each(nodes, function (index, val) {
+                                        var label = val.labelName;
+                                        if (sourcelabel == label) {
+                                            $("#cid" + index).show();
+                                            $("#nodetext" + index).show();
+                                        }
+                                    });
+                                    $("#edgepath" + i).show();
+                                    $("#edgetext" + i).show();
+
+                                }
+
+                            });
+                            flag++;
+                            $(this).attr("flag", flag);
+                        } else {
+                            $.each(links, function (i, d) {
+                                var source = links[i].source;
+                                var target = links[i].target;
+                                var sourcelabel = source.labelName;
+                                var targetlabel = target.labelName;
+                                if (sourcelabel == text) {
+                                    $.each(nodes, function (index, val) {
+                                        var label = val.labelName;//节点描述
+                                        if (targetlabel == label) {
+                                            if (target.type == "Hospital") {
+                                                if ($("#edgepath" + i).is(":visible")) {
+                                                    hosflag--;
+                                                }
+                                            }
+                                            if (target.type == "Employee") {
+                                                if ($("#edgepath" + i).is(":visible")) {
+                                                    empflag--;
+                                                }
+                                            }
+                                            if (hosflag > 0) {
+                                                $("#cid" + index).show();
+                                                $("#nodetext" + index).show();
+                                            } else {
+                                                $("#cid" + index).hide();
+                                                $("#nodetext" + index).hide();
+                                            }
+                                            if (empflag > 0) {
+                                                $("#cid" + index).show();
+                                                $("#nodetext" + index).show();
+                                            } else {
+                                                $("#cid" + index).hide();
+                                                $("#nodetext" + index).hide();
+                                            }
+
+                                        }
+                                    });
+                                    if (hosflag > 1) {
+                                        $("#edgepath" + i).hide();
+                                        $("#edgetext" + i).hide();
+                                    } else {
+                                        $("#edgepath" + i).hide();
+                                        $("#edgetext" + i).hide();
+                                    }
+                                    if (empflag > 1) {
+                                        $("#edgepath" + i).hide();
+                                        $("#edgetext" + i).hide();
+                                    } else {
+                                        $("#edgepath" + i).hide();
+                                        $("#edgetext" + i).hide();
+                                    }
+//								$("#edgepath"+i).hide();
+//								$("#edgetext"+i).hide();
+                                }
+                                if (targetlabel == text) {
+                                    $.each(nodes, function (index, val) {
+                                        var label = val.labelName;
+                                        var type = val.type;//获取该数据是什么类型的节点
+                                        if (sourcelabel == label) {
+                                            $("#cid" + index).hide();
+                                            $("#nodetext" + index).hide();
+                                        }
+                                    });
+                                    $("#edgepath" + i).hide();
+                                    $("#edgetext" + i).hide();
+                                }
+
+                            });
+                            flag++;
+                            $(this).attr("flag", flag);
+                        }
+                    }
+                });
+
+            }
+
+        });
+
+
+
+    });
+</script>
+</body>
+</html>

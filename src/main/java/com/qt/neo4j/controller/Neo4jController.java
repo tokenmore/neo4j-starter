@@ -1,6 +1,7 @@
 package com.qt.neo4j.controller;
 
 import com.qt.neo4j.service.Neo4jService;
+import com.qt.neo4j.service.Neo4jService1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,8 @@ import java.util.HashMap;
 public class Neo4jController {
     @Autowired
     private Neo4jService neo4jService;
+    @Autowired
+    private Neo4jService1 neo4jService1;
 
     @RequestMapping("/getAllFullRelations")
     public HashMap<String,Object> getAllFullRelations(){
@@ -20,12 +23,12 @@ public class Neo4jController {
 
     @RequestMapping("/getFullRelationByCaseId/{caseId}")
     public HashMap<String,Object> getFullRelationByCaseId(@PathVariable("caseId") String caseId){
-        return neo4jService.getFullRelationByCaseId(caseId);
+        return neo4jService1.getFullRelationByCaseId(caseId);
     }
 
     @RequestMapping("/getFullRelationByTelId/{telId}")
     public HashMap<String,Object> getFullRelationByTelId(@PathVariable("telId") String telId){
-        return neo4jService.getFullRelationByTelId(telId);
+        return neo4jService1.getFullRelationByTelId(telId);
     }
 
     @RequestMapping("/getFullRelationByHosId/{hosId}")
