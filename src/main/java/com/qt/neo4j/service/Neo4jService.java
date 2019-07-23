@@ -34,7 +34,7 @@ public class Neo4jService {
                 " as hosId,n2.hospitalName as hosName,id(n3) as employeeId,n3.empId as empId,id(n4) as customerId," +
                 "n4.customerId as custId,n4.customerName as customerName,id(n5) as telephoneId,n5.telId as " +
                 "telId,type(r1),type(r2),type(r3),type(r4),type(r5),type(r6),type(r7)," +
-                "type(r8),type(r9) limit 1";
+                "type(r8),type(r9) limit 10";
        HashMap<String, Object> map = new HashMap<>();
         StatementResult result = neo4jUtils.runSql(sql);
         List<Node> nodeList = new ArrayList<>();

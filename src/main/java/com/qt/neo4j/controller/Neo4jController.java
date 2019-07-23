@@ -5,6 +5,7 @@ import com.qt.neo4j.service.Neo4jService1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -18,11 +19,12 @@ public class Neo4jController {
 
     @RequestMapping("/getAllFullRelations")
     public HashMap<String,Object> getAllFullRelations(){
-        return neo4jService.getAllFullRelations();
+        return neo4jService1.getAllFullRelations();
     }
 
-    @RequestMapping("/getFullRelationByCaseId/{caseId}")
-    public HashMap<String,Object> getFullRelationByCaseId(@PathVariable("caseId") String caseId){
+    @RequestMapping("/getFullRelationByCaseId")
+    public HashMap<String,Object> getFullRelationByCaseId(@RequestParam("caseId") String caseId){
+        System.out.println(caseId);
         return neo4jService1.getFullRelationByCaseId(caseId);
     }
 
@@ -38,11 +40,11 @@ public class Neo4jController {
 
     @RequestMapping("/getFullRelationByEmpId/{empId}")
     public HashMap<String,Object> getFullRelationByEmpId(@PathVariable("empId") String empId){
-        return neo4jService.getFullRelationByEmpId(empId);
+        return neo4jService1.getFullRelationByEmpId(empId);
     }
 
-    @RequestMapping("/getFullRelationByCustomerId/{customerId}")
+    @RequestMapping("/getFullRelationByCustomerId/{-customerId}")
     public HashMap<String,Object> getFullRelationByCustomerId(@PathVariable("customerId") String customerId){
-        return neo4jService.getFullRelationByCustomerId(customerId);
+        return neo4jService1.getFullRelationByCustomerId(customerId);
     }
 }

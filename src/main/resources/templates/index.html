@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>首页</title>
     <link rel="stylesheet" th:href="@{css/bootstrap.min.css}">
-    <script th:src="@{js/jquery.js}"></script>
+    <script th:src="@{js/jquery-3.2.1.min.js}"></script>
     <script th:src="@{js/d3.js}"></script>
     <script th:src="@{js/NetworkGraph.min.js}"></script>
 </head>
@@ -25,27 +25,31 @@
                 var network = new NetworkGraph("vis");
                 var graph0 = network.drawNetworkGraph(data, "force");
                 $(document).on("click","circle",function(){
-                    var flag = $(this).attr("flag");console.log(flag);
+                    var flag = $(this).attr("flag");
                     var labelName = $(this).parent().children("text").text();
                    if(flag == "false"){
                        $.get({
-                           url:"/getFullRelationByCaseId?caseId="+"TAY163000000334",
+                           url:"/getFullRelationByCaseId?caseId="+labelName,
                            success:function (data) {
                                $.each(data.nodes,function (i,d) {
                                    graph0.addNode(d);
+                                   nodes.push(d);
                                });
+
                                $.each(data.links,function (i,d) {
                                    var relation = d.relation;
                                    graph0.addLink(d.source,d.target,relation);
-                                   setTimeout(function () {
-                                       graph0.stopLayout();
-                                   },3000)
+                                   links.push(d);
                                });
+                               setTimeout(function () {
+                                   graph0.stopLayout();
+                               },3000)
                            }
                        })
                        $(this).attr("flag","true");
                    }else{
-                       $(this).hide();
+                       // $(this).hide(); 删除新增的节点和边关系
+
                        $(this).attr("flag","false");
                    }
                 })
