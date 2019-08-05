@@ -1,5 +1,5 @@
 "use strict";
-var colors = d3.scaleOrdinal().domain(d3.range(30)).range(d3.schemeCategory10);
+var colors = d3.scaleOrdinal().domain(30).range(d3.schemeCategory10);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (t) {
     return typeof t
 } : function (t) {
@@ -64,7 +64,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         X += 1;
         var i = X;
         var a = {nodes: [], links: []};
-        //这里的a是接受的data
         a = JSON.parse(JSON.stringify(typeof t !== "undefined" ? t : a));
         var r = typeof arguments[2] !== "undefined" ? n : et.width / 2;
         var o = typeof arguments[3] !== "undefined" ? M : et.height / 2;
@@ -116,16 +115,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         function j(t) {
             d = c.select("#node_layout").selectAll("g").data(t);
-            // $.each(t,function(index,val){
-            //     console.log("datagrapg:"+val);
-            // })
             d.exit().remove();
             var e = d.enter().append("g").attr("class", "node").attr("transform", function (t) {
                 return "x" in t && "y" in t ? "translate(" + t.x + ", " + t.y + ")" : ""
             }).on("mousedown.select-node", w).on("mouseenter.enter-node", T).on("mouseleave.leave-node", x).on("dblclick", z).call(d3.drag().on("start", h).on("drag", C).on("end", E));
             e.append("circle").attr("class", "background-circle").style("cursor", "move").style("stroke-opacity", "0").style("stroke-width", "16px").style("stroke", "#68bdf6bf");
-            e.append("circle").attr("class", "foreground-circle").style("fill", function(d){return colors(d.color)}).style("cursor", "move").style("stroke-width", "3px").style("stroke", "#18769f").attr("flag",false).attr("count",0);
-                e.attr("id",function(d){return d.id});
+            e.append("circle").attr("class", "foreground-circle").style("fill", function(d){return colors(d.color)}).style("cursor", "move").style("stroke-width", "3px").style("stroke", "#18769f");
             d = d.merge(e);
             d.selectAll("circle").attr("r", function (t) {
                 if (!("size" in t)) {
@@ -148,27 +143,27 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }
 
         function D(t, e) {
-            // var n = e.length;
-            // if (n <= 4) {
-                t.text(e)
-            // } else {
-            //     var M = e.substring(0, 4);
-            //     var r = e.substring(4, 9);
-            //     var a = e.substring(9, n);
-            //     var i = -9;
-            //     var o = 2;
-            //     var s = 10;
-            //     if (n < 10) {
-            //         i += 5;
-            //         o += 5
-            //     } else {
-            //         a = e.substring(9, 11) + "..."
-            //     }
-            //     t.text("");
-            //     t.append("tspan").attr("x", 0).attr("y", i).text(M);
-            //     t.append("tspan").attr("x", 0).attr("y", o).text(r);
-            //     t.append("tspan").attr("x", 0).attr("y", s).text(a)
-            // }
+//          var n = e.length;
+//          if (n <= 4) {
+                t.append("tspan").attr("x", 0).attr("y", 2).text(e)
+//          } else {
+//              var M = e.substring(0, 4);
+//              var r = e.substring(4, 9);
+//              var a = e.substring(9, n);
+//              var i = -9;
+//              var o = 2;
+//              var s = 10;
+//              if (n < 10) {
+//                  i += 5;
+//                  o += 5
+//              } else {
+//                  a = e.substring(9, 11) + "..."
+//              }
+//              t.text("");
+//              t.append("tspan").attr("x", 0).attr("y", i).text(M);
+//              t.append("tspan").attr("x", 0).attr("y", o).text(r);
+//              t.append("tspan").attr("x", 0).attr("y", s).text(a)
+//          }
         }
 
         function f(t, e) {
@@ -191,18 +186,26 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             }
             var r = e.selectAll("g").data(t);
             r.exit().remove();
-            var a = r.enter().append("g").attr("class", "link").attr("id",function(d){
-                // console.log(d);
-                var source = d.source.id;
-                var target = d.target.id;
-                var id = source+""+target;
-                return id;
-            })
+            var a = r.enter().append("g").attr("class", "link");
             a.append("path").attr("class", "link-path").style("fill", "none").style("cursor", "pointer").style("stroke", "#6f7071");
             a.append("marker").attr("class", "link-marker").attr("markerUnits", "userSpaceOnUse").attr("viewBox", "0 -50 100 100").attr("refY", 0).attr("markerWidth", 12).attr("markerHeight", 12).attr("orient", "auto").append("path").attr("d", "M20,0 L0,-30 L90,0 L0,30 L20,0").style("fill", "#000000");
             a.append("text").attr("class", "link-text").attr("dx", function (t) {
                 return Y(t)
-            }).attr("dy", 4).append("textPath").style("font-size", "10px").style("fill", "#000000").style("display", y.show_status.link_text === true ? "block" : "none");
+            }).attr("dy", 4).append("textPath").style("font-size", "10px").style("fill", "#000000")
+            .style("display", y.show_status.link_text === true ? "block" : "none")
+            .attr("x",function(d){
+    			return (d.source.x+d.target.x)/2;
+    		})
+    		.attr("y",function(d){
+    			return (d.source.y+d.target.y)/2;
+    		});
+//          .attr("transform",function(d){
+//          	let x1 = d.source.x,y1=d.source.y;
+//          	let	x2 = d.target.x,y2=d.target.y;
+//          	let width = x2-x1,height = y2-y1;
+//          	let angle = Math.atan(height/width)*180 / Math.PI;
+//          	return `translate(${(x1=x2)/2},${(y1+y2)/2})rotate(${angle})`;
+//          });
             r = r.merge(a);
             r.select("marker").attr("id", function (t) {
                 return "marker-" + i + "-" + t.index
@@ -215,14 +218,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 return m(t)
             }).attr("marker-end", function (t) {
                 return "url(#marker-" + i + "-" + t.index + ")"
-            }).style("stroke-width", function (t) {
-                if (!("width" in t)) {
-                    t["width"] = y.link.link_width
-                }
-                return t.width
-            }).on("mousedown.select-link", I).on("mouseover.hover-link", k);
+            }).style("stroke-width", 1).on("mousedown.select-link", I).on("mouseover.hover-link", k);
             r.select("textPath").text(function (t) {
-                return t.type
+                return t.relation
             }).attr("href", function (t) {
                 return "#link" + i + "-" + t.index
             });
@@ -445,9 +443,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }
 
         function _() {
-            y.graph.calculating = true;
-            d3.select("#network-status").style("animation", "calc ease 1s infinite");
-            s.alpha(1).restart()
+//          y.graph.calculating = true;
+//          d3.select("#network-status").style("animation", "calc ease 1s infinite");
+//          s.alpha(0.5).restart()
         }
 
         function Z() {
@@ -469,7 +467,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             t["x"] = arguments[1] ? e : et.width / 2;
             t["y"] = arguments[2] ? n : et.height / 2;
             a.nodes.push(t);
-            console.log(a.nodes);
             U(a)
         }
 
@@ -555,6 +552,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 s.force("link", d3.forceLink().id(function (t) {
                     return t.id
                 }).strength(.005)).force("charge", d3.forceManyBody().strength(y.graph.repulsion)).force("link").links(t)
+                .distance(function(d){
+                	return d.color*25;
+                })
             }
             f(t, $, "0")
         }
@@ -593,6 +593,3 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     var Mt = "data:image/svg+xml;base64," + "Cjxzdmcgdmlld0JveD0iMCAwIDE3IDE2IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9" + "yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIGNsYXNzPS" + "JzaS1nbHlwaCBzaS1nbHlwaC1saW5rLTEiPjx0aXRsZT44MjA8L3RpdGxlPjxkZWZzPjwvZGVmcz48ZyBzd" + "HJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48" + "ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxLjAwMDAwMCwgNS4wMDAwMDApIiBmaWxsPSIjNDM0MzQzIj48cmV" + "jdCB4PSI0IiB5PSIyIiB3aWR0aD0iNi45NzkiIGhlaWdodD0iMC45NTkiIGNsYXNzPSJzaS1nbHlwaC1maW" + "xsIj48L3JlY3Q+PGc+PHBhdGggZD0iTTEzLjYwNCwwIEw5LjM4NSwwIEM4LjY0MiwwIDguMDM1LDAuNTkxI" + "DguMDM1LDEuMzE4IEw4LjAzNSwzLjY2MiBDOC4wMzUsNC4zODggOC42NDEsNC45NzkgOS4zODUsNC45Nzkg" + "TDEzLjYwNCw0Ljk3OSBDMTQuMzQ4LDQuOTc5IDE0Ljk1Miw0LjM4NyAxNC45NTIsMy42NjIgTDE0Ljk1Miw" + "xLjMxOCBDMTQuOTUxLDAuNTkxIDE0LjM0OCwwIDEzLjYwNCwwIEwxMy42MDQsMCBaIE0xNC4wMjQsMy42Nz" + "kgQzE0LjAyNCwzLjg3MSAxMy44NTMsNC4wMjcgMTMuNjQzLDQuMDI3IEw5LjMyNSw0LjAyNyBDOS4xMTUsN" + "C4wMjcgOC45NDUsMy44NzIgOC45NDUsMy42NzkgTDguOTQ1LDEuMzAyIEM4Ljk0NSwxLjExIDkuMTE1LDAu" + "OTUzIDkuMzI1LDAuOTUzIEwxMy42NDMsMC45NTMgQzEzLjg1MywwLjk1MyAxNC4wMjQsMS4xMDkgMTQuMDI" + "0LDEuMzAyIEwxNC4wMjQsMy42NzkgTDE0LjAyNCwzLjY3OSBaIiBjbGFzcz0ic2ktZ2x5cGgtZmlsbCI+PC" + "9wYXRoPjxwYXRoIGQ9Ik01LjYyMSwwIEwxLjM3NywwIEMwLjYyOCwwIDAuMDIsMC41OTEgMC4wMiwxLjMxO" + "CBMMC4wMiwzLjY2MiBDMC4wMiw0LjM4OCAwLjYyOCw0Ljk3OSAxLjM3Nyw0Ljk3OSBMNS42MjEsNC45Nzkg" + "QzYuMzY5LDQuOTc5IDYuOTc3LDQuMzg3IDYuOTc3LDMuNjYyIEw2Ljk3NywxLjMxOCBDNi45NzgsMC41OTE" + "gNi4zNjksMCA1LjYyMSwwIEw1LjYyMSwwIFogTTYuMDQ5LDMuNjYyIEM2LjA0OSwzLjg1MSA1Ljg3Nyw0Lj" + "AwNSA1LjY2OCw0LjAwNSBMMS4zNSw0LjAwNSBDMS4xNDEsNC4wMDUgMC45NjksMy44NTIgMC45NjksMy42N" + "jIgTDAuOTY5LDEuMzE4IEMwLjk2OSwxLjEyOSAxLjE0MSwwLjk3NCAxLjM1LDAuOTc0IEw1LjY2OCwwLjk3" + "NCBDNS44NzcsMC45NzQgNi4wNDksMS4xMjggNi4wNDksMS4zMTggTDYuMDQ5LDMuNjYyIEw2LjA0OSwzLjY" + "2MiBaIiBjbGFzcz0ic2ktZ2x5cGgtZmlsbCI+PC9wYXRoPjwvZz48L2c+PC9nPjwvc3ZnPg==";
     var rt = "data:image/svg+xml;base64," + "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0ZWQgYnkgSWNvTW9" + "vbi5pbyAtLT4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cD" + "ovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxL" + "jEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cu" + "dzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDU" + "xMiI+CjxnPgo8L2c+Cgk8cGF0aCBkPSJNNDAwIDY0aC0yODhjLTI2LjUxIDAtNDggMjEuNDktNDggNDh2MT" + "ZoMzg0di0xNmMwLTI2LjUxLTIxLjQ5LTQ4LTQ4LTQ4ek0zMTYuMTYgMzJsNy4wNTggNTAuNWgtMTM0LjQzN" + "mw3LjA1Ny01MC41aDEyMC4zMjF6TTMyMCAwaC0xMjhjLTEzLjIgMC0yNS40OTUgMTAuNjk2LTI3LjMyMSAy" + "My43NjlsLTkuMzU3IDY2Ljk2MmMtMS44MjcgMTMuMDczIDcuNDc4IDIzLjc2OSAyMC42NzggMjMuNzY5aDE" + "2MGMxMy4yIDAgMjIuNTA1LTEwLjY5NiAyMC42NzktMjMuNzY5bC05LjM1Ny02Ni45NjJjLTEuODI3LTEzLj" + "A3My0xNC4xMjItMjMuNzY5LTI3LjMyMi0yMy43Njl2MHpNNDA4IDE2MGgtMzA0Yy0xNy42IDAtMzAuNjk2I" + "DE0LjM0MS0yOS4xMDMgMzEuODY5bDI2LjIwNiAyODguMjYzYzEuNTkzIDE3LjUyNyAxNy4yOTcgMzEuODY4" + "IDM0Ljg5NyAzMS44NjhoMjQwYzE3LjYgMCAzMy4zMDQtMTQuMzQxIDM0Ljg5Ny0zMS44NjhsMjYuMjA1LTI" + "4OC4yNjNjMS41OTQtMTcuNTI4LTExLjUwMi0zMS44NjktMjkuMTAyLTMxLjg2OXpNMTkyIDQ0OGgtNDhsLT" + "E2LTIyNGg2NHYyMjR6TTI4OCA0NDhoLTY0di0yMjRoNjR2MjI0ek0zNjggNDQ4aC00OHYtMjI0aDY0bC0xN" + "iAyMjR6IiBmaWxsPSIjMDAwMDAwIiAvPgo8L3N2Zz4K"
 })();
-
-
-

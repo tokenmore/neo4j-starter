@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script th:src="@{js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{js/d3.js}"></script>
+    <script th:src="@{js/NetWorkGraph4.js}"></script>
+    <style>
+        html {
+            height: 100%;
+        }
+        body {
+            width: 100%;
+            height: 100%;
+        }
+        #vis {
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+        }
+        #btn{
+            margin: 10px auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="btn">
+    <label>选择查询类型:</label>
+    <select id="select">
+        <option>案件号</option>
+        <option>身份证号</option>
+        <option>医院代码</option>
+        <option>业务员工号</option>
+        <option>客户姓名</option>
+    </select>
+    请输入查询内容:
+    <input type="text" id="input" />
+    <button type="button" id="search">查询</button>
+</div>
+<svg width="960" height="800" class="col-sm-11" id="vis"></svg>
+<script>
+    $(function () {
+        var dataset={nodes:[],links:[]};//ajax结果集
+        var network_graph;//第三方库文件对象
+        var graph0;//js实例对象
+        var nodeset ={nodes:[],links:[]};
+        var svg = d3.select("svg");
+        $(document).on("click","#search",function(){
+           var input = $("#input").val();
+           var type = $("select option:selected").text();
+           if(type == "案件号"){
+               $.get({
+                   url:"/getFullRelationByCaseId?caseId="+input,
+                   success:function (data) {
+                       var svg = d3.select("svg").selectAll("*").remove();
+                       delete(dataset.nodes);
+                       delete(dataset.links);
+                        dataset = data;
+                        var nodes = dataset.nodes;
+                        var links = dataset.links;
+                        $.each(nodes,function(i,d){
+                           if(d.type=="AccidentCase"){
+                               delete (nodeset.nodes);
+                               var nodes = [];
+                               nodes.push(d);
+                               nodeset.nodes = nodes;
+                           }
+                        });
+                        network_graph = new NetworkGraph("vis");
+                        graph0 = network_graph.drawNetworkGraph(nodeset,"force");
+                        setTimeout(function () {
+                            graph0.stopLayout();
+                        },1500);
+
+                        $(document).on("click","circle",function(){
+                            d3.select("svg").selectAll("*").remove();
+                            console.log(dataset);
+                            network_graph = new NetworkGraph("vis");
+                            network_graph.drawNetworkGraph(dataset,"force");
+                            setTimeout(function () {
+                                graph0.stopLayout();
+                            },1500);
+                        })
+                   }
+               })
+           };
+            if(type == "业务员工号"){
+                $.get({
+                    url:"/getFullRelationByEmpId?empId="+input,
+                    success:function (data) {
+                        var svg = d3.select("svg").selectAll("*").remove();
+                        delete(dataset.nodes);
+                        delete(dataset.links);
+                        dataset = data;
+                        var nodes = dataset.nodes;
+                        var links = dataset.links;
+                        $.each(nodes,function(i,d){
+                            if(d.type=="Employee"){
+                                delete (nodeset.nodes);
+                                var nodes = [];
+                                nodes.push(d);
+                                nodeset.nodes = nodes;
+                            }
+                        });
+                        network_graph = new NetworkGraph("vis");
+                        graph0 = network_graph.drawNetworkGraph(nodeset,"force");
+                        setTimeout(function () {
+                            graph0.stopLayout();
+                        },1500);
+
+                        $(document).on("click","circle",function(){
+                            d3.select("svg").selectAll("*").remove();
+                            console.log(dataset);
+                            network_graph = new NetworkGraph("vis");
+                            network_graph.drawNetworkGraph(dataset,"force");
+                            setTimeout(function () {
+                                graph0.stopLayout();
+                            },1500);
+                        })
+                    }
+                })
+            };
+            if(type == "身份证号"){
+                $.get({
+                    url:"/getFullRelationByCustomerId?customerId="+input,
+                    success:function (data) {
+                        var svg = d3.select("svg").selectAll("*").remove();
+                        delete(dataset.nodes);
+                        delete(dataset.links);
+                        dataset = data;
+                        var nodes = dataset.nodes;
+                        var links = dataset.links;
+                        $.each(nodes,function(i,d){
+                            if(d.type=="Customer"){
+                                delete (nodeset.nodes);
+                                var nodes = [];
+                                nodes.push(d);
+                                nodeset.nodes = nodes;
+                            }
+                        });
+                        network_graph = new NetworkGraph("vis");
+                        graph0 = network_graph.drawNetworkGraph(nodeset,"force");
+                        setTimeout(function () {
+                            graph0.stopLayout();
+                        },1500);
+
+                        $(document).on("click","circle",function(){
+                            d3.select("svg").selectAll("*").remove();
+                            console.log(dataset);
+                            network_graph = new NetworkGraph("vis");
+                            network_graph.drawNetworkGraph(dataset,"force");
+                            setTimeout(function () {
+                                graph0.stopLayout();
+                            },1500);
+                        })
+                    }
+                })
+            };
+            if(type == "医院代码"){
+                $.get({
+                    url:"/getFullRelationByHosId?hosId="+input,
+                    success:function (data) {
+                        var svg = d3.select("svg").selectAll("*").remove();
+                        delete(dataset.nodes);
+                        delete(dataset.links);
+                        dataset = data;
+                        var nodes = dataset.nodes;
+                        var links = dataset.links;
+                        $.each(nodes,function(i,d){
+                            if(d.type=="Hospital"){
+                                delete (nodeset.nodes);
+                                var nodes = [];
+                                nodes.push(d);
+                                nodeset.nodes = nodes;
+                            }
+                        });
+                        network_graph = new NetworkGraph("vis");
+                        graph0 = network_graph.drawNetworkGraph(nodeset,"force");
+                        setTimeout(function () {
+                            graph0.stopLayout();
+                        },1500);
+
+                        $(document).on("click","circle",function(){
+                            d3.select("svg").selectAll("*").remove();
+                            console.log(dataset);
+                            network_graph = new NetworkGraph("vis");
+                            network_graph.drawNetworkGraph(dataset,"force");
+                            setTimeout(function () {
+                                graph0.stopLayout();
+                            },1500);
+                        })
+                    }
+                })
+            };
+            if(type == "客户姓名"){
+                $.get({
+                    url:"/getFullRelationBycustomerName?customerName="+input,
+                    success:function (data) {
+                        var svg = d3.select("svg").selectAll("*").remove();
+                        delete(dataset.nodes);
+                        delete(dataset.links);
+                        dataset = data;
+                        var nodes = dataset.nodes;
+                        var links = dataset.links;
+                        $.each(nodes,function(i,d){
+                            if(d.type=="Customer"){
+                                delete (nodeset.nodes);
+                                var nodes = [];
+                                nodes.push(d);
+                                nodeset.nodes = nodes;
+                            }
+                        });
+                        network_graph = new NetworkGraph("vis");
+                        graph0 = network_graph.drawNetworkGraph(nodeset,"force");
+                        setTimeout(function () {
+                            graph0.stopLayout();
+                        },1500);
+
+                        $(document).on("click","circle",function(){
+                            d3.select("svg").selectAll("*").remove();
+                            console.log(dataset);
+                            network_graph = new NetworkGraph("vis");
+                            network_graph.drawNetworkGraph(dataset,"force");
+                            setTimeout(function () {
+                                graph0.stopLayout();
+                            },1500);
+                        })
+                    }
+                })
+            }
+        });
+    });
+</script>
+<!--设置点击节点，该节点作为起点的所有子节点和边都隐藏-->
+<script>
+</script>
+</body>
+</html>

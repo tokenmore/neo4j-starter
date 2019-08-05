@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}">
+    <script th:src="@{js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{js/d3.js}"></script>
+    <script th:src="@{js/NetworkGraph.min.js}"></script>
+</head>
+<body>
+<svg width="960" height="800" id="vis"></svg>
+<!--初始化加载案件节点-->
+<script>
+    $(function () {
+        var nodes;
+        var links;
+        var nodeAdd = [];
+        var linkAdd = [];
+        var nodeId = [];//用来存放node的Id
+        $.ajax({
+            url: "/getAllAccidentCase",
+            type: "get",
+            cache: false,
+            // dataType:"json",
+            success: function (data) {
+                nodes = data.nodes;
+                links = data.links;
+                var network = new NetworkGraph("vis");
+                var graph0 = network.drawNetworkGraph(data, "force");
+                $(document).on("click","circle",function(){
+                    var flag = $(this).attr("flag");
+                    var count = $(this).attr("count");
+                    console.log(count);
+                    var labelName = $(this).parent().children("text").text();
+                   if(flag == "false"){
+                      if(count == "0"){
+                          $.get({
+                              url:"/getFullRelationByCaseId?caseId="+labelName,
+                              cache:false,
+                              success:function (data) {
+                                  $.each(data.nodes,function (i,d) {
+                                      graph0.addNode(d);
+                                      nodes.push(d);
+                                      nodeAdd.push(d);
+                                      nodeId.push(d.id);
+                                  });
+
+                                  $.each(data.links,function (i,d) {
+                                      var relation = d.relation;
+                                      graph0.addLink(d.source,d.target,relation);
+                                      links.push(d);
+                                      linkAdd.push(d);
+                                  });
+                                  setTimeout(function () {
+                                      graph0.stopLayout();
+                                  },3000);
+                              }
+                          });
+                          count ++;
+                          $(this).attr("flag","true");
+                          $(this).attr("count",count);
+                          console.log(count);
+                      }else{
+                          count ++;
+                          $(this).attr("flag","true");
+                          $(this).attr("count",count);
+                          console.log(count);
+                          setTimeout(function () {
+                              graph0.stopLayout();
+                          },3000);
+                      }
+                   }else{
+                       count++;
+                       $(this).attr("flag","false");
+                       $(this).attr("count",count);
+                       console.log(links);
+                      $.each(links,function(index,val){
+                            if(links.length != 0){
+                                $.each(nodeId,function(i,d){
+                                    if(val.source == d || val.target == d){
+                                        delete links[index2];
+                                        var id = val.source+""+val.target;
+                                        $("#"+id).remove();
+                                    }
+                                })
+                            }
+                      });
+                       $.each(nodes,function(index,val){
+                           $.each(nodeId,function(i,d){
+                               if(val.id == d){
+                                   delete nodes[index2];
+                                   $("#"+d).remove();
+                               }
+                           })
+                       });
+                       var node1=[];
+                       var link1=[];
+                       $.each(links,function(i,d){
+                           if(typeof d !== "undefined"){
+                               link1.push(d);
+                           }
+                       });
+                       $.each(nodes,function(i,d){
+                           if(typeof d !== "undefined"){
+                               node1.push(d);
+                           }
+                       });
+                       nodes = node1;
+                       links = link1;
+                   }
+                })
+            }
+
+        });
+
+        function deleteEmptyProperty(obj){
+            var object = obj;
+            for (var i in object) {
+                var value = object[i];
+                if (typeof value === 'object') {
+                    if (Array.isArray(value)) {
+                        if (value.length == 0) {
+                            delete object[i];
+                            continue;
+                        }
+                    }
+                    deleteEmptyProperty(value);
+                } else {
+                    if (value === '' || value === null || value === undefined) {
+                        delete object[i];
+                    }
+                }
+            }
+            return object;
+        }
+
+    });
+</script>
+</body>
+</html>

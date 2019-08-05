@@ -21,7 +21,6 @@ public class ListUtils {
             }
         }
         list.add(node);
-        System.out.println("nodelist.size:"+list.size());
         return list;
     }
 
